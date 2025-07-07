@@ -64,6 +64,31 @@
     a:hover {
       text-decoration: underline;
     }
+    form {
+      background: white;
+      padding: 1rem;
+      border-radius: 10px;
+      max-width: 400px;
+      margin: 0 auto;
+      box-shadow: 0 3px 6px rgb(0 0 0 / 0.1);
+    }
+    input, textarea, button {
+      width: 100%;
+      padding: 0.5rem;
+      margin-top: 0.5rem;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+    button {
+      background: #3b4cca;
+      color: white;
+      border: none;
+      cursor: pointer;
+      margin-top: 1rem;
+    }
+    button:hover {
+      background: #2e3b9f;
+    }
   </style>
 </head>
 <body>
@@ -80,17 +105,17 @@
       <h2>Our Products</h2>
       <div class="products">
         <div class="product">
-          <img src="https://via.placeholder.com/250x250?text=Canteen+1" alt="Canteen 1" />
-          <h3>Urban Night</h3>
-          <p>A bold scent crafted for the city dweller.</p>
+          <img src="https://via.placeholder.com/250x250?text=YSL+EDP" alt="YSL EDP" />
+          <h3>YSL EDP</h3>
+          <p>A bold, modern fragrance with crisp and woody notes.</p>
         </div>
         <div class="product">
-          <img src="https://via.placeholder.com/250x250?text=Canteen+2" alt="Canteen 2" />
-          <h3>Forest Whisper</h3>
-          <p>Fresh and earthy, inspired by nature.</p>
+          <img src="https://via.placeholder.com/250x250?text=Prada+Ocean" alt="Prada Ocean EDP" />
+          <h3>Prada Ocean EDP</h3>
+          <p>Fresh, aquatic, and vibrant — inspired by the deep blue.</p>
         </div>
         <div class="product">
-          <img src="https://via.placeholder.com/250x250?text=Canteen+3" alt="Canteen 3" />
+          <img src="https://via.placeholder.com/250x250?text=Midnight+Ember" alt="Midnight Ember" />
           <h3>Midnight Ember</h3>
           <p>A warm, smoky fragrance to turn heads.</p>
         </div>
@@ -98,19 +123,25 @@
     </section>
 
     <section>
-  <h2>Contact Us</h2>
-  <p>If you have any questions, comments, or need support with your order, we’re here to help. Fill out the form below or email us directly at <a href="mailto:colongeaura@gmail.com">colongeaura@gmail.com</a>.</p>
+      <h2>Contact Us</h2>
+      <p>If you have any questions, comments, or need support with your order, we’re here to help. Fill out the form below or email us directly at <a href="mailto:colongeaura@gmail.com">colongeaura@gmail.com</a>.</p>
 
-  <form action="https://formspree.io/f/xanjzyvp" method="POST">
-    <label for="name">Name:</label><br />
-    <input type="text" id="name" name="name" required /><br /><br />
+      <form action="https://formspree.io/f/xanjzyvp" method="POST">
+        <label for="name">Name:</label><br />
+        <input type="text" id="name" name="name" required /><br /><br />
 
-    <label for="email">Email:</label><br />
-    <input type="email" id="email" name="email" required /><br /><br />
+        <label for="email">Email:</label><br />
+        <input type="email" id="email" name="email" required /><br /><br />
 
-    <label for="message">Message:</label><br />
-    <textarea id="message" name="message" rows="5" required></textarea><br /><br />
+        <label for="message">Message:</label><br />
+        <textarea id="message" name="message" rows="5" required></textarea><br /><br />
 
-    <button type="submit">Send Message</button>
-  </form>
-</section>
+        <button type="submit">Send Message</button>
+      </form>
+    </section>
+  </main>
+  <footer>
+    &copy; 2025 Cologne Aura. All rights reserved.
+  </footer>
+</body>
+</html>
