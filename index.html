@@ -14,10 +14,26 @@
       color: white;
       padding: 1.5rem 2rem;
       text-align: center;
+      position: relative;
     }
     header h1 {
       margin: 0; font-weight: 700;
       letter-spacing: 2px;
+    }
+    .header-btn {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      background: white;
+      color: #3b4cca;
+      padding: 0.5rem 1rem;
+      border-radius: 5px;
+      font-weight: bold;
+      text-decoration: none;
+      box-shadow: 0 2px 4px rgb(0 0 0 / 0.2);
+    }
+    .header-btn:hover {
+      background: #e0e0e0;
     }
     main {
       max-width: 900px;
@@ -31,24 +47,6 @@
       color: #3b4cca;
       border-bottom: 2px solid #6a7fdb;
       padding-bottom: 0.5rem;
-    }
-    .products {
-      display: flex;
-      gap: 2rem;
-      flex-wrap: wrap;
-      justify-content: center;
-    }
-    .product {
-      background: white;
-      border-radius: 10px;
-      box-shadow: 0 3px 6px rgb(0 0 0 / 0.1);
-      padding: 1rem;
-      width: 250px;
-      text-align: center;
-    }
-    .product img {
-      width: 100%;
-      border-radius: 10px;
     }
     footer {
       background: #3b4cca;
@@ -94,33 +92,12 @@
 <body>
   <header>
     <h1>Cologne Aura</h1>
+    <a href="products.html" class="header-btn">View All Products</a>
   </header>
   <main>
     <section>
       <h2>Welcome to Cologne Aura</h2>
       <p>Luxury fragrances. Refillable canteens. Designed for men who stand out.</p>
-      <p><a href="#products">View All Products</a></p>
-    </section>
-
-    <section id="products">
-      <h2>Our Products</h2>
-      <div class="products">
-        <div class="product">
-          <img src="https://via.placeholder.com/250x250?text=YSL+EDP" alt="" />
-          <h3>YSL EDP</h3>
-          <p>An intense, sophisticated fragrance blending sharp freshness with deep, masculine warmth. Perfect for making a bold impression.</p>
-        </div>
-        <div class="product">
-          <img src="https://via.placeholder.com/250x250?text=Prada+Ocean" alt="" />
-          <h3>Prada Ocean EDP</h3>
-          <p>A vibrant, aquatic scent with refreshing marine notes and smooth, woody undertones. Designed for confidence and adventure.</p>
-        </div>
-        <div class="product">
-          <img src="https://via.placeholder.com/250x250?text=Midnight+Ember" alt="" />
-          <h3>Midnight Ember</h3>
-          <p>A warm, smoky fragrance to turn heads.</p>
-        </div>
-      </div>
     </section>
 
     <section>
