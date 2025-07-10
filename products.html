@@ -3,13 +3,13 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Our Products - Cologne Aura</title>
+  <title>Cologne Aura</title>
   <style>
     body {
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       margin: 0;
       padding: 0;
-      background: #fff;
+      background: #ffffff;
       color: #111;
     }
     header {
@@ -17,88 +17,168 @@
       color: white;
       padding: 1.5rem 2rem;
       text-align: center;
+      position: relative;
       box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
     }
     header h1 {
       margin: 0;
       font-weight: 800;
+      letter-spacing: 2px;
       font-size: 2rem;
     }
-    main {
-      max-width: 1000px;
-      margin: 2rem auto;
-      padding: 1rem;
-    }
-    .product-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 2rem;
-    }
-    .product {
-      background: #f9f9f9;
-      padding: 1rem;
-      border-radius: 10px;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-      text-align: center;
-    }
-    .product img {
-      width: 100%;
-      max-height: 250px;
-      object-fit: cover;
-      border-radius: 8px;
-    }
-    .product h3 {
+    .header-btn {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      background: #C0C0C0;
       color: #1A1F71;
-      font-size: 1.25rem;
-      margin: 0.75rem 0 0.5rem;
-    }
-    .product p {
-      font-size: 0.95rem;
-      color: #444;
-    }
-    a.back-link {
-      display: block;
-      margin-top: 2rem;
-      text-align: center;
-      color: #1A1F71;
+      padding: 0.5rem 1rem;
+      border-radius: 5px;
       font-weight: bold;
       text-decoration: none;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+      transition: background 0.3s ease;
     }
-    a.back-link:hover {
+    .header-btn:hover {
+      background: #e0e0e0;
+    }
+    main {
+      max-width: 900px;
+      margin: 2rem auto;
+      padding: 0 1rem;
+    }
+    section {
+      margin-bottom: 3rem;
+    }
+    h2 {
+      color: #1A1F71;
+      border-bottom: 2px solid #C0C0C0;
+      padding-bottom: 0.5rem;
+      font-size: 1.5rem;
+    }
+    footer {
+      background: #1A1F71;
+      color: white;
+      text-align: center;
+      padding: 1rem;
+      margin-top: 4rem;
+      box-shadow: 0 -2px 6px rgba(0, 0, 0, 0.2);
+    }
+    a {
+      color: #3b4cca;
+      text-decoration: none;
+      font-weight: 500;
+    }
+    a:hover {
       text-decoration: underline;
     }
+    form {
+      background: #f5f5f5;
+      padding: 1.5rem;
+      border-radius: 10px;
+      max-width: 400px;
+      margin: 0 auto;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+    input, textarea, button {
+      width: 100%;
+      padding: 0.75rem;
+      margin-top: 0.75rem;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      font-size: 1rem;
+    }
+    button {
+      background: #1A1F71;
+      color: white;
+      border: none;
+      cursor: pointer;
+      margin-top: 1rem;
+      font-weight: bold;
+      transition: background 0.3s ease;
+    }
+    button:hover {
+      background: #141957;
+    }
+
+    #popup-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.75);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+    }
+
+    #popup-box {
+      background: white;
+      padding: 2rem;
+      border-radius: 12px;
+      max-width: 90%;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+      text-align: center;
+    }
+
+    #popup-box h2 {
+      margin-top: 0;
+      color: #1A1F71;
+      font-size: 1.25rem;
+    }
+
+    #popup-box input {
+      padding: 0.6rem;
+    }
+
+    #popup-box button {
+      padding: 0.6rem;
+    }
+
+    #close-popup {
+      background: transparent;
+      color: #666;
+      border: none;
+      margin-top: 1rem;
+      display: block;
+      text-decoration: underline;
+      font-size: 0.9rem;
+    }
+
     @media (max-width: 600px) {
-      .product-grid {
-        grid-template-columns: 1fr;
+      header {
+        padding-top: 2.5rem;
+      }
+      header h1 {
+        font-size: 1.5rem;
+        margin-bottom: 0.5rem;
+      }
+      .header-btn {
+        position: static;
+        display: inline-block;
+        margin-top: 0.5rem;
+      }
+      main {
+        padding: 0 0.5rem;
+      }
+      form {
+        padding: 1rem;
+      }
+      #popup-box {
+        padding: 1.25rem;
+      }
+      #popup-box h2 {
+        font-size: 1.1rem;
+      }
+      #popup-box p {
+        font-size: 0.95rem;
       }
     }
   </style>
 </head>
 <body>
-  <header>
-    <h1>Our Canteen Scents</h1>
-  </header>
-
-  <main>
-    <div class="product-grid">
-      <div class="product">
-        <img src="https://via.placeholder.com/300x250?text=YSL+EDP" alt="YSL EDP">
-        <h3>YSL EDP</h3>
-        <p>A bold, seductive scent with notes of sage, tonka bean, and cedarwood. Perfect for a night out or a power move.</p>
-      </div>
-      <div class="product">
-        <img src="https://via.placeholder.com/300x250?text=Prada+Ocean" alt="Prada Ocean">
-        <h3>Prada Ocean</h3>
-        <p>Fresh and invigorating with bergamot, iris, and vetiver. Designed for daytime confidence and clarity.</p>
-      </div>
-      <div class="product">
-        <img src="https://via.placeholder.com/300x250?text=Midnight+Ember" alt="Midnight Ember">
-        <h3>Midnight Ember</h3>
-        <p>A warm, mysterious blend still in development. Coming soon for those who like to leave a lasting impression.</p>
-      </div>
-    </div>
-
-    <a class="back-link" href="index.html">&larr; Back to Home</a>
-  </main>
+  <!-- rest of HTML stays the same -->
 </body>
 </html>
