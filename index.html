@@ -189,29 +189,61 @@
   </footer>
 
   <!-- Subscribe Popup -->
-  <div id="popup-overlay">
-    <div id="popup-box">
-      <h2>Get Exclusive Offers</h2>
-      <p>Join the Cologne Aura list for subscriber-only deals and launches.</p>
-      <form action="https://formspree.io/f/xanjzyvp" method="POST">
-        <input type="hidden" name="_redirect" value="https://www.colongeaura.com" />
-        <input type="email" name="email" placeholder="Your email address" required />
-        <button type="submit">Subscribe</button>
-      </form>
-      <button id="close-popup">No Thanks</button>
-    </div>
+  <div id="popup-box">
+  <h2>Get Exclusive Offers</h2>
+  <p>Join the Cologne Aura list for subscriber-only deals and launches.</p>
+  <form id="subscribe-form">
+    <input type="email" name="email" placeholder="Your email address" required />
+    <button type="submit">Subscribe</button>
+  </form>
+  <div id="thank-you-message" style="display:none; margin-top: 1rem;">
+    <strong>Thank you for subscribing!</strong><br>
+    You'll be the first to know about exclusive drops and deals.
   </div>
+  <button id="close-popup">No Thanks</button>
+</div>
 
   <!-- Popup Script -->
-  <script>
-    window.addEventListener('load', function () {
-      if (!localStorage.getItem('popupShown')) {
-        setTimeout(() => {
-          document.getElementById('popup-overlay').style.display = 'flex';
-          localStorage.setItem('popupShown', 'true');
-        }, 1000);
+  window.addEventListener('load', function () {
+    if (!localStorage.getItem('popupShown')) {
+      setTimeout(() => {
+        document.getElementById('popup-overlay').style.display = 'flex';
+        localStorage.setItem('popupShown', 'true');
+      }, 1000);
+    }
+  });
+
+  document.getElementById('close-popup').addEventListener('click', function () {
+    document.getElementById('popup-overlay').style.display = 'none';
+  });
+
+  // Handle Form Submission
+  document.getElementById('subscribe-form').addEventListener('submit', function (e) {
+    e.preventDefault();
+
+    const form = e.target;
+    const formData = new FormData(form);
+    const email = formData.get('email');
+
+    fetch('https://formspree.io/f/xanjzyvp', {
+      method: 'POST',
+      headers: { 'Accept': 'application/json' },
+      body: formData
+    })
+    .then(response => {
+      if (response.ok) {
+        form.style.display = 'none';
+        document.getElementById('thank-you-message').style.display = 'block';
+      } else {
+        alert("Oops! There was a problem. Try again later.");
       }
+    })
+    .catch(error => {
+      console.error('Form submission error:', error);
+      alert("Something went wrong. Please try again later.");
     });
+  });
+</script>
 
     document.getElementById('close-popup').addEventListener('click', function () {
       document.getElementById('popup-overlay').style.display = 'none';
