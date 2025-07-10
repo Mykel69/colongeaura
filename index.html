@@ -7,7 +7,10 @@
   <style>
     body {
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      margin: 0; padding: 0; background: #ffffff; color: #111;
+      margin: 0;
+      padding: 0;
+      background: #ffffff;
+      color: #111;
     }
     header {
       background: linear-gradient(90deg, #1A1F71, #3b4cca);
@@ -18,7 +21,8 @@
       box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
     }
     header h1 {
-      margin: 0; font-weight: 800;
+      margin: 0;
+      font-weight: 800;
       letter-spacing: 2px;
       font-size: 2rem;
     }
@@ -32,7 +36,7 @@
       border-radius: 5px;
       font-weight: bold;
       text-decoration: none;
-      box-shadow: 0 2px 6px rgb(0 0 0 / 0.3);
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
       transition: background 0.3s ease;
     }
     .header-btn:hover {
@@ -74,7 +78,7 @@
       border-radius: 10px;
       max-width: 400px;
       margin: 0 auto;
-      box-shadow: 0 4px 10px rgb(0 0 0 / 0.1);
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     }
     input, textarea, button {
       width: 100%;
@@ -100,7 +104,10 @@
     /* --- Popup Styling --- */
     #popup-overlay {
       position: fixed;
-      top: 0; left: 0; right: 0; bottom: 0;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
       background: rgba(0, 0, 0, 0.75);
       display: none;
       justify-content: center;
@@ -114,7 +121,7 @@
       border-radius: 12px;
       max-width: 400px;
       width: 90%;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
       text-align: center;
     }
 
@@ -198,7 +205,7 @@
         <button type="submit">Subscribe</button>
       </form>
       <div id="thank-you-message" style="display:none; margin-top: 1rem;">
-        <strong>Thank you for subscribing!</strong><br>
+        <strong>Thank you for subscribing!</strong><br />
         You'll be the first to know about exclusive drops and deals.
       </div>
       <button id="close-popup">No Thanks</button>
@@ -220,7 +227,6 @@
       document.getElementById('popup-overlay').style.display = 'none';
     });
 
-    // Handle Form Submission
     document.getElementById('subscribe-form').addEventListener('submit', function (e) {
       e.preventDefault();
 
