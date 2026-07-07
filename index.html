@@ -1,271 +1,492 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Cologne Aura</title>
-  <style>
-    body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      margin: 0;
-      padding: 0;
-      background: #ffffff;
-      color: #111;
-    }
-    header {
-      background: linear-gradient(90deg, #1A1F71, #3b4cca);
-      color: white;
-      padding: 1.5rem 2rem;
-      text-align: center;
-      position: relative;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-    }
-    header h1 {
-      margin: 0;
-      font-weight: 800;
-      letter-spacing: 2px;
-      font-size: 2rem;
-    }
-    .header-btn {
-      position: absolute;
-      top: 20px;
-      right: 20px;
-      background: #C0C0C0;
-      color: #1A1F71;
-      padding: 0.5rem 1rem;
-      border-radius: 5px;
-      font-weight: bold;
-      text-decoration: none;
-      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
-      transition: background 0.3s ease;
-    }
-    .header-btn:hover {
-      background: #e0e0e0;
-    }
-    main {
-      max-width: 900px;
-      margin: 2rem auto;
-      padding: 0 1rem;
-    }
-    section {
-      margin-bottom: 3rem;
-    }
-    h2 {
-      color: #1A1F71;
-      border-bottom: 2px solid #C0C0C0;
-      padding-bottom: 0.5rem;
-      font-size: 1.5rem;
-    }
-    footer {
-      background: #1A1F71;
-      color: white;
-      text-align: center;
-      padding: 1rem;
-      margin-top: 4rem;
-      box-shadow: 0 -2px 6px rgba(0, 0, 0, 0.2);
-    }
-    a {
-      color: #3b4cca;
-      text-decoration: none;
-      font-weight: 500;
-    }
-    a:hover {
-      text-decoration: underline;
-    }
-    form {
-      background: #f5f5f5;
-      padding: 1.5rem;
-      border-radius: 10px;
-      max-width: 400px;
-      margin: 0 auto;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    }
-    input, textarea, button {
-      width: 100%;
-      padding: 0.75rem;
-      margin-top: 0.75rem;
-      border: 1px solid #ccc;
-      border-radius: 5px;
-      font-size: 1rem;
-    }
-    button {
-      background: #1A1F71;
-      color: white;
-      border: none;
-      cursor: pointer;
-      margin-top: 1rem;
-      font-weight: bold;
-      transition: background 0.3s ease;
-    }
-    button:hover {
-      background: #141957;
-    }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cologne Aura — Authentic Designer Fragrance, by the Millilitre</title>
+<meta name="description" content="Cologne Aura hand-decants authentic designer fragrances into 2ml, 5ml and 10ml samples. Try before you commit to a full bottle.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#100D18;
+    --ink-2:#16121F;
+    --surface:#1C1727;
+    --surface-2:#241E31;
+    --line:rgba(255,255,255,0.08);
+    --line-strong:rgba(255,255,255,0.16);
+    --text:#F3EEF7;
+    --muted:#A79FB4;
+    --muted-2:#726A80;
+    --gold:#E9C489;
+    --gold-deep:#C9A25E;
+    --display:"Cormorant Garamond", Georgia, serif;
+    --body:"Jost", system-ui, sans-serif;
+    --maxw:1180px;
+  }
 
-    #popup-overlay {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: rgba(0, 0, 0, 0.75);
-      display: none;
-      justify-content: center;
-      align-items: center;
-      z-index: 9999;
-    }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    background:var(--ink);
+    color:var(--text);
+    font-family:var(--body);
+    font-weight:300;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+  a{color:inherit;text-decoration:none}
+  img{max-width:100%;display:block}
+  ::selection{background:rgba(233,196,137,0.28);color:#fff}
 
-    #popup-box {
-      background: white;
-      padding: 2rem;
-      border-radius: 12px;
-      max-width: 90%;
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-      text-align: center;
-    }
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 28px}
+  .eyebrow{
+    font-family:var(--body);
+    font-size:.72rem;
+    font-weight:500;
+    letter-spacing:.32em;
+    text-transform:uppercase;
+    color:var(--gold);
+  }
 
-    #popup-box h2 {
-      margin-top: 0;
-      color: #1A1F71;
-      font-size: 1.25rem;
-    }
+  /* ---------- Header ---------- */
+  header{
+    position:sticky;top:0;z-index:50;
+    background:rgba(16,13,24,0.72);
+    backdrop-filter:blur(14px);
+    border-bottom:1px solid var(--line);
+  }
+  .nav{display:flex;align-items:center;justify-content:space-between;height:76px}
+  .brand{display:flex;flex-direction:column;line-height:1;gap:2px}
+  .brand b{font-family:var(--body);font-weight:500;letter-spacing:.34em;font-size:.7rem;color:var(--muted);text-transform:uppercase;padding-left:.34em}
+  .brand span{font-family:var(--display);font-size:1.55rem;font-weight:500;letter-spacing:.02em}
+  .brand span i{font-style:italic;color:var(--gold)}
+  .nav-links{display:flex;align-items:center;gap:34px}
+  .nav-links a{font-size:.86rem;letter-spacing:.04em;color:var(--muted);transition:color .25s}
+  .nav-links a:hover{color:var(--text)}
+  .cart{
+    display:flex;align-items:center;gap:9px;
+    border:1px solid var(--line-strong);border-radius:100px;
+    padding:9px 16px;font-size:.82rem;letter-spacing:.05em;color:var(--text);
+    background:rgba(255,255,255,0.02);transition:border-color .25s, background .25s;
+  }
+  .cart:hover{border-color:var(--gold);background:rgba(233,196,137,0.06)}
+  .cart .count{color:var(--gold);font-weight:500}
+  .menu-btn{display:none;background:none;border:0;color:var(--text);cursor:pointer;padding:6px}
+  .menu-btn svg{width:26px;height:26px}
 
-    #popup-box input {
-      padding: 0.6rem;
-    }
+  /* ---------- Hero ---------- */
+  .hero{position:relative;text-align:center;padding:130px 0 120px;overflow:hidden}
+  .hero-aura{
+    position:absolute;top:44%;left:50%;transform:translate(-50%,-50%);
+    width:min(780px,120vw);height:min(780px,120vw);border-radius:50%;
+    background:
+      radial-gradient(circle at 38% 40%, rgba(233,196,137,0.42), transparent 55%),
+      radial-gradient(circle at 66% 58%, rgba(150,110,220,0.40), transparent 58%),
+      radial-gradient(circle at 52% 70%, rgba(80,190,200,0.30), transparent 60%);
+    filter:blur(58px);opacity:.9;z-index:0;
+    animation:breathe 9s ease-in-out infinite;
+  }
+  @keyframes breathe{
+    0%,100%{transform:translate(-50%,-50%) scale(1);opacity:.82}
+    50%{transform:translate(-50%,-50%) scale(1.09);opacity:1}
+  }
+  .hero .wrap{position:relative;z-index:2}
+  .hero .eyebrow{display:block;margin-bottom:26px}
+  .hero h1{
+    font-family:var(--display);font-weight:300;
+    font-size:clamp(3.4rem,10vw,7.2rem);line-height:.98;letter-spacing:-.01em;
+    margin-bottom:26px;
+  }
+  .hero h1 em{font-style:italic;color:var(--gold)}
+  .hero p.lead{
+    max-width:560px;margin:0 auto 40px;color:var(--muted);
+    font-size:1.08rem;font-weight:300;
+  }
+  .cta-row{display:flex;gap:16px;justify-content:center;flex-wrap:wrap}
+  .btn{
+    display:inline-flex;align-items:center;gap:10px;cursor:pointer;
+    font-family:var(--body);font-size:.86rem;letter-spacing:.08em;text-transform:uppercase;
+    padding:15px 30px;border-radius:100px;border:1px solid transparent;transition:.28s;
+  }
+  .btn-primary{background:var(--gold);color:#221a0e;font-weight:500}
+  .btn-primary:hover{background:#f4d6a4;transform:translateY(-2px)}
+  .btn-ghost{border-color:var(--line-strong);color:var(--text)}
+  .btn-ghost:hover{border-color:var(--gold);color:var(--gold)}
+  .scroll-hint{margin-top:64px;font-size:.72rem;letter-spacing:.3em;text-transform:uppercase;color:var(--muted-2)}
 
-    #popup-box button {
-      padding: 0.6rem;
-    }
+  /* ---------- Ethos ---------- */
+  .ethos{padding:96px 0;border-top:1px solid var(--line)}
+  .ethos .inner{display:grid;grid-template-columns:0.8fr 1.2fr;gap:64px;align-items:start}
+  .ethos h2{font-family:var(--display);font-weight:300;font-size:clamp(2rem,4.4vw,3.1rem);line-height:1.08}
+  .ethos h2 em{font-style:italic;color:var(--gold)}
+  .ethos .body p{color:var(--muted);font-size:1.05rem;margin-bottom:22px;max-width:60ch}
+  .ethos .points{display:flex;gap:40px;flex-wrap:wrap;margin-top:8px}
+  .point .k{font-family:var(--display);font-size:2.3rem;color:var(--gold);line-height:1}
+  .point .v{font-size:.82rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-top:8px}
 
-    #close-popup {
-      background: transparent;
-      color: #666;
-      border: none;
-      margin-top: 1rem;
-      display: block;
-      text-decoration: underline;
-      font-size: 0.9rem;
-    }
+  /* ---------- Section head ---------- */
+  .sec-head{display:flex;align-items:flex-end;justify-content:space-between;gap:24px;margin-bottom:52px;flex-wrap:wrap}
+  .sec-head h2{font-family:var(--display);font-weight:300;font-size:clamp(2.1rem,5vw,3.4rem);line-height:1}
+  .sec-head h2 em{font-style:italic;color:var(--gold)}
+  .sec-head .eyebrow{margin-bottom:14px;display:block}
+  .sec-head p{color:var(--muted);max-width:38ch;font-size:.98rem}
 
-    @media (max-width: 600px) {
-      header h1 {
-        font-size: 1.5rem;
-      }
-      .header-btn {
-        padding: 0.3rem 0.7rem;
-        font-size: 0.9rem;
-        top: 15px;
-        right: 15px;
-      }
-      main {
-        padding: 0 0.5rem;
-      }
-      form {
-        padding: 1rem;
-      }
-      #popup-box {
-        padding: 1.25rem;
-      }
-      #popup-box h2 {
-        font-size: 1.1rem;
-      }
-      #popup-box p {
-        font-size: 0.95rem;
-      }
+  /* ---------- Shop ---------- */
+  .shop{padding:96px 0;border-top:1px solid var(--line)}
+  .grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+  .card{
+    position:relative;background:var(--surface);border:1px solid var(--line);
+    border-radius:18px;padding:26px 22px 22px;overflow:hidden;transition:border-color .3s, transform .3s;
+  }
+  .card:hover{border-color:var(--line-strong);transform:translateY(-4px)}
+  .card .glow{
+    position:absolute;top:-30px;left:50%;transform:translateX(-50%);
+    width:200px;height:200px;border-radius:50%;
+    background:radial-gradient(circle, var(--aura), transparent 66%);
+    filter:blur(34px);opacity:.55;transition:opacity .3s;pointer-events:none;
+  }
+  .card:hover .glow{opacity:.85}
+  .card .bottle{position:relative;z-index:1;height:130px;display:flex;align-items:center;justify-content:center;margin-bottom:16px}
+  .card .bottle svg{height:120px;color:var(--aura)}
+  .card .house{position:relative;z-index:1;font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);margin-bottom:6px}
+  .card .name{position:relative;z-index:1;font-family:var(--display);font-size:1.5rem;font-weight:500;line-height:1.05;margin-bottom:8px}
+  .card .fam{position:relative;z-index:1;display:inline-block;font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;color:var(--aura);border:1px solid var(--line-strong);border-radius:100px;padding:4px 11px;margin-bottom:20px}
+  .sizes{position:relative;z-index:1;display:flex;gap:7px;margin-bottom:18px}
+  .size{
+    flex:1;text-align:center;cursor:pointer;font-size:.8rem;letter-spacing:.03em;
+    padding:8px 0;border-radius:9px;border:1px solid var(--line);color:var(--muted);
+    background:transparent;font-family:var(--body);transition:.22s;
+  }
+  .size:hover{border-color:var(--line-strong);color:var(--text)}
+  .size.active{background:rgba(233,196,137,0.12);border-color:var(--gold);color:var(--gold);font-weight:500}
+  .card .foot{position:relative;z-index:1;display:flex;align-items:center;justify-content:space-between}
+  .price{font-family:var(--display);font-size:1.7rem;color:var(--text)}
+  .price .cur{font-size:1rem;vertical-align:super;color:var(--muted);margin-right:1px}
+  .add{
+    background:transparent;border:1px solid var(--line-strong);color:var(--text);cursor:pointer;
+    font-family:var(--body);font-size:.76rem;letter-spacing:.1em;text-transform:uppercase;
+    padding:11px 18px;border-radius:100px;transition:.24s;
+  }
+  .add:hover{background:var(--gold);color:#221a0e;border-color:var(--gold)}
+  .add:active{transform:scale(.96)}
+
+  /* ---------- How ---------- */
+  .how{padding:96px 0;border-top:1px solid var(--line)}
+  .steps{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+  .step{padding:30px 26px;border:1px solid var(--line);border-radius:16px;background:var(--ink-2);position:relative}
+  .step .no{font-family:var(--display);font-size:2.6rem;color:var(--gold);line-height:1;margin-bottom:18px}
+  .step h3{font-family:var(--body);font-weight:500;font-size:1.02rem;letter-spacing:.02em;margin-bottom:10px}
+  .step p{color:var(--muted);font-size:.92rem}
+
+  /* ---------- Trust ---------- */
+  .trust{padding:104px 0;border-top:1px solid var(--line);text-align:center;position:relative;overflow:hidden}
+  .trust .t-aura{
+    position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
+    width:640px;height:340px;border-radius:50%;
+    background:radial-gradient(circle,rgba(233,196,137,0.22),transparent 65%);
+    filter:blur(50px);z-index:0;
+  }
+  .trust .wrap{position:relative;z-index:1}
+  .trust h2{font-family:var(--display);font-weight:300;font-size:clamp(2.2rem,5.4vw,3.8rem);line-height:1.08;max-width:16ch;margin:0 auto 22px}
+  .trust h2 em{font-style:italic;color:var(--gold)}
+  .trust p{color:var(--muted);max-width:52ch;margin:0 auto;font-size:1.05rem}
+  .badges{display:flex;gap:44px;justify-content:center;flex-wrap:wrap;margin-top:44px}
+  .badge{font-size:.76rem;letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
+  .badge b{color:var(--gold);font-weight:500}
+
+  /* ---------- Join ---------- */
+  .join{padding:96px 0;border-top:1px solid var(--line)}
+  .join .inner{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center}
+  .join h2{font-family:var(--display);font-weight:300;font-size:clamp(2rem,4.4vw,3rem);line-height:1.08;margin-bottom:14px}
+  .join p{color:var(--muted);margin-bottom:24px}
+  .field{display:flex;gap:10px;flex-wrap:wrap}
+  .field input{
+    flex:1;min-width:200px;background:var(--surface);border:1px solid var(--line);color:var(--text);
+    font-family:var(--body);font-size:.92rem;padding:15px 18px;border-radius:100px;outline:none;transition:border-color .25s;
+  }
+  .field input:focus{border-color:var(--gold)}
+  .field input::placeholder{color:var(--muted-2)}
+  .socials{display:flex;gap:14px;justify-content:flex-end}
+  .soc{
+    width:52px;height:52px;border-radius:50%;border:1px solid var(--line-strong);
+    display:flex;align-items:center;justify-content:center;color:var(--muted);transition:.26s;
+  }
+  .soc:hover{border-color:var(--gold);color:var(--gold);transform:translateY(-3px)}
+  .soc svg{width:22px;height:22px}
+
+  /* ---------- Footer ---------- */
+  footer{border-top:1px solid var(--line);padding:44px 0}
+  .foot-in{display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap}
+  .foot-in small{color:var(--muted-2);font-size:.8rem;letter-spacing:.03em}
+  .foot-in .disc{color:var(--muted-2);font-size:.76rem;max-width:52ch;line-height:1.5}
+
+  /* toast */
+  .toast{
+    position:fixed;bottom:26px;left:50%;transform:translateX(-50%) translateY(140%);
+    background:var(--surface-2);border:1px solid var(--gold);color:var(--text);
+    padding:14px 24px;border-radius:100px;font-size:.86rem;letter-spacing:.04em;z-index:100;
+    box-shadow:0 10px 40px rgba(0,0,0,.5);transition:transform .4s cubic-bezier(.2,.9,.3,1.3);
+  }
+  .toast.show{transform:translateX(-50%) translateY(0)}
+  .toast b{color:var(--gold)}
+
+  /* ---------- Responsive ---------- */
+  @media(max-width:960px){
+    .grid,.steps{grid-template-columns:repeat(2,1fr)}
+    .ethos .inner,.join .inner{grid-template-columns:1fr;gap:36px}
+    .socials{justify-content:flex-start}
+  }
+  @media(max-width:640px){
+    .nav-links{
+      position:absolute;top:76px;left:0;right:0;flex-direction:column;gap:0;
+      background:var(--ink-2);border-bottom:1px solid var(--line);
+      max-height:0;overflow:hidden;transition:max-height .35s ease;
     }
-  </style>
+    .nav-links.open{max-height:320px}
+    .nav-links a{padding:16px 28px;width:100%;border-top:1px solid var(--line)}
+    .nav-links .cart{margin:16px 28px;justify-content:center}
+    .menu-btn{display:block}
+    .grid,.steps{grid-template-columns:1fr}
+    .badges{gap:24px}
+  }
+
+  @media(prefers-reduced-motion:reduce){
+    html{scroll-behavior:auto}
+    .hero-aura{animation:none}
+    *{transition:none!important}
+  }
+
+  :focus-visible{outline:2px solid var(--gold);outline-offset:3px;border-radius:4px}
+</style>
 </head>
 <body>
-  <header>
-    <h1>Cologne Aura</h1>
-    <a href="products.html" class="header-btn">View All Products</a>
-  </header>
 
-  <main>
-    <section>
-      <h2>Welcome to Cologne Aura</h2>
-      <p>Luxury fragrances. Refillable canteens. Designed for men who stand out.</p>
-    </section>
-
-    <section>
-      <h2>Contact Us</h2>
-      <p>If you have any questions, comments, or need support with your order, we’re here to help. Fill out the form below or email us directly at <a href="mailto:colongeaura@gmail.com">colongeaura@gmail.com</a>.</p>
-
-      <form action="https://formspree.io/f/xanjzyvp" method="POST">
-        <label for="name">Name:</label><br />
-        <input type="text" id="name" name="name" required /><br /><br />
-
-        <label for="email">Email:</label><br />
-        <input type="email" id="email" name="email" required /><br /><br />
-
-        <label for="message">Message:</label><br />
-        <textarea id="message" name="message" rows="5" required></textarea><br /><br />
-
-        <button type="submit">Send Message</button>
-      </form>
-    </section>
-  </main>
-
-  <footer>
-    &copy; 2025 Cologne Aura. All rights reserved.
-  </footer>
-
-  <!-- Subscribe Popup -->
-  <div id="popup-overlay">
-    <div id="popup-box">
-      <h2>Get Exclusive Offers</h2>
-      <p>Join the Cologne Aura list for subscriber-only deals and launches.</p>
-      <form id="subscribe-form">
-        <input type="email" name="email" placeholder="Your email address" required />
-        <button type="submit">Subscribe</button>
-      </form>
-      <div id="thank-you-message" style="display:none; margin-top: 1rem;">
-        <strong>Thank you for subscribing!</strong><br />
-        You'll be the first to know about exclusive drops and deals.
-      </div>
-      <button id="close-popup">No Thanks</button>
-    </div>
+<header>
+  <div class="wrap nav">
+    <a class="brand" href="#top" aria-label="Cologne Aura home">
+      <b>Cologne</b>
+      <span>Aura<i>.</i></span>
+    </a>
+    <nav class="nav-links" id="navLinks">
+      <a href="#shop">Shop</a>
+      <a href="#how">How it works</a>
+      <a href="#trust">Authenticity</a>
+      <a href="#join">Contact</a>
+      <a href="#shop" class="cart">Bag <span class="count" id="cartCount">0</span></a>
+    </nav>
+    <button class="menu-btn" id="menuBtn" aria-label="Toggle menu" aria-expanded="false">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+    </button>
   </div>
+</header>
 
-  <!-- Popup Script -->
-  <script>
-    window.addEventListener('load', function () {
-      if (!localStorage.getItem('popupShown')) {
-        setTimeout(() => {
-          document.getElementById('popup-overlay').style.display = 'flex';
-          localStorage.setItem('popupShown', 'true');
-        }, 1000);
-      }
-    });
+<main id="top">
 
-    document.getElementById('close-popup').addEventListener('click', function () {
-      document.getElementById('popup-overlay').style.display = 'none';
-    });
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-aura" aria-hidden="true"></div>
+    <div class="wrap">
+      <span class="eyebrow">Authentic designer fragrance · by the millilitre</span>
+      <h1>Find your <em>aura</em>.</h1>
+      <p class="lead">Designer scents shouldn't be a $150 gamble. We hand-decant the real thing into 2, 5 &amp; 10ml samples — so you can live with a fragrance before you commit to the full bottle.</p>
+      <div class="cta-row">
+        <a href="#shop" class="btn btn-primary">Browse the collection</a>
+        <a href="#how" class="btn btn-ghost">How it works</a>
+      </div>
+      <div class="scroll-hint">Scroll to explore</div>
+    </div>
+  </section>
 
-    document.getElementById('subscribe-form').addEventListener('submit', function (e) {
-      e.preventDefault();
+  <!-- ETHOS -->
+  <section class="ethos">
+    <div class="wrap inner">
+      <h2>Try many.<br>Commit to <em>one</em>.</h2>
+      <div class="body">
+        <p>A signature scent is personal — you can't find it from a blurb and a star rating. Cologne Aura lets you wear the real fragrance for a week or two before spending full-bottle money, so the one you choose is truly <em>yours</em>.</p>
+        <p>Every decant is hand-poured from a genuine, retail-purchased bottle. No dupes, no clones, no mystery juice. Just the actual fragrance, in a size that fits your shelf and your budget.</p>
+        <div class="points">
+          <div class="point"><div class="k">40+</div><div class="v">Designer houses</div></div>
+          <div class="point"><div class="k">3</div><div class="v">Sizes to try</div></div>
+          <div class="point"><div class="k">100%</div><div class="v">Authentic</div></div>
+        </div>
+      </div>
+    </div>
+  </section>
 
-      const form = e.target;
-      const formData = new FormData(form);
+  <!-- SHOP -->
+  <section class="shop" id="shop">
+    <div class="wrap">
+      <div class="sec-head">
+        <div>
+          <span class="eyebrow">The collection</span>
+          <h2>This week's <em>auras</em></h2>
+        </div>
+        <p>A rotating selection of the fragrances people ask for most. Pick a size, add to your bag.</p>
+      </div>
+      <div class="grid" id="grid"></div>
+    </div>
+  </section>
 
-      fetch('https://formspree.io/f/xanjzyvp', {
-        method: 'POST',
-        headers: { 'Accept': 'application/json' },
-        body: formData
-      })
-      .then(response => {
-        if (response.ok) {
-          form.style.display = 'none';
-          document.getElementById('thank-you-message').style.display = 'block';
-        } else {
-          alert("Oops! There was a problem. Try again later.");
-        }
-      })
-      .catch(error => {
-        console.error('Form submission error:', error);
-        alert("Something went wrong. Please try again later.");
+  <!-- HOW -->
+  <section class="how" id="how">
+    <div class="wrap">
+      <div class="sec-head">
+        <div>
+          <span class="eyebrow">The process</span>
+          <h2>From bottle to <em>you</em></h2>
+        </div>
+        <p>Four steps. No guesswork, no counterfeits — just the real fragrance, poured fresh.</p>
+      </div>
+      <div class="steps">
+        <div class="step"><div class="no">1</div><h3>Pick your scents</h3><p>Browse the collection and choose the fragrances you've been curious about.</p></div>
+        <div class="step"><div class="no">2</div><h3>Choose your size</h3><p>2ml for a taste, 5ml for a proper trial, 10ml if you already know you love it.</p></div>
+        <div class="step"><div class="no">3</div><h3>Hand-decanted</h3><p>We pour from a sealed, authentic bottle into a clean glass atomiser and label it.</p></div>
+        <div class="step"><div class="no">4</div><h3>Shipped to you</h3><p>Sealed, protected, and on its way — usually within two business days.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TRUST -->
+  <section class="trust" id="trust">
+    <div class="t-aura" aria-hidden="true"></div>
+    <div class="wrap">
+      <span class="eyebrow">Our promise</span>
+      <h2 style="margin-top:20px">Real juice. <em>Every</em> single time.</h2>
+      <p>Every Cologne Aura decant is poured from a genuine, retail-purchased bottle and clearly labelled as a decant. We're not affiliated with the fragrance houses — we're just obsessive about giving you the real thing.</p>
+      <div class="badges">
+        <div class="badge"><b>Genuine</b> bottles only</div>
+        <div class="badge"><b>Clearly</b> labelled decants</div>
+        <div class="badge"><b>Sealed</b> &amp; protected shipping</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- JOIN -->
+  <section class="join" id="join">
+    <div class="wrap inner">
+      <div>
+        <h2>Join the <em style="font-family:var(--display);font-style:italic;color:var(--gold)">list</em>.</h2>
+        <p>New drops, restocks and members-only bundles — straight to your inbox. No spam, just scent.</p>
+        <div class="field">
+          <input type="email" id="email" placeholder="you@email.com" aria-label="Email address">
+          <button class="btn btn-primary" id="joinBtn">Notify me</button>
+        </div>
+      </div>
+      <div>
+        <p style="text-align:right;color:var(--muted);margin-bottom:18px;letter-spacing:.04em">Find us on socials</p>
+        <div class="socials">
+          <a class="soc" href="#" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg></a>
+          <a class="soc" href="#" aria-label="TikTok"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M16 3c.3 2 1.6 3.6 3.6 3.9v2.6c-1.3.1-2.6-.3-3.6-1v6.1c0 3.3-2.7 5.6-5.7 5.4-2.7-.2-4.8-2.4-4.8-5.1 0-3 2.6-5.3 5.6-5v2.7c-.4-.1-.9-.2-1.3-.1-1.3.2-2.2 1.3-2 2.6.1 1.2 1.2 2.1 2.4 2 1.3 0 2.3-1.1 2.3-2.4V3H16z"/></svg></a>
+          <a class="soc" href="#" aria-label="Email"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M4 7l8 5 8-5"/></svg></a>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap foot-in">
+    <small>© 2026 Cologne Aura. Crafted with obsession.</small>
+    <p class="disc">Cologne Aura sells hand-poured decants of authentic fragrances and is not affiliated with, endorsed by, or sponsored by any of the fragrance houses named. All trademarks belong to their respective owners.</p>
+  </div>
+</footer>
+
+<div class="toast" id="toast">Added to bag — <b>keep exploring</b></div>
+
+<script>
+  /* ---- Catalog data ---- */
+  const CATALOG = [
+    { name:"Sauvage",         house:"Dior",           fam:"Aromatic Fougère", aura:"#5AA9F0", p:{2:6,5:12,10:20} },
+    { name:"Bleu de Chanel",  house:"Chanel",         fam:"Woody Aromatic",   aura:"#46C7C7", p:{2:7,5:14,10:24} },
+    { name:"Aventus",         house:"Creed",          fam:"Fruity Chypre",    aura:"#C9B24E", p:{2:12,5:25,10:45} },
+    { name:"Tobacco Vanille", house:"Tom Ford",       fam:"Amber Spicy",      aura:"#E08A3C", p:{2:11,5:24,10:42} },
+    { name:"Y Eau de Parfum", house:"Yves Saint Laurent", fam:"Aromatic Fresh", aura:"#8AA0F0", p:{2:6,5:12,10:20} },
+    { name:"Eros",            house:"Versace",        fam:"Aromatic Fresh",   aura:"#4FC98A", p:{2:5,5:11,10:18} },
+    { name:"Le Male",         house:"Jean Paul Gaultier", fam:"Oriental Fougère", aura:"#A98CE0", p:{2:5,5:11,10:18} },
+    { name:"The Most Wanted", house:"Azzaro",         fam:"Amber Fougère",    aura:"#E07050", p:{2:6,5:12,10:21} },
+  ];
+
+  const bottleSVG = `<svg viewBox="0 0 60 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <rect x="24" y="4" width="12" height="10" rx="2" stroke="currentColor" stroke-width="1.5"/>
+    <rect x="27" y="14" width="6" height="8" fill="currentColor" opacity="0.5"/>
+    <path d="M14 30c0-4.4 3.6-8 8-8h16c4.4 0 8 3.6 8 8v72c0 4.4-3.6 8-8 8H22c-4.4 0-8-3.6-8-8V30Z" stroke="currentColor" stroke-width="1.5"/>
+    <path d="M14 46h32" stroke="currentColor" stroke-width="1" opacity="0.4"/>
+    <rect x="20" y="58" width="20" height="30" rx="3" fill="currentColor" opacity="0.14"/>
+  </svg>`;
+
+  const grid = document.getElementById('grid');
+  let cart = 0;
+
+  CATALOG.forEach((f, i) => {
+    const el = document.createElement('article');
+    el.className = 'card';
+    el.style.setProperty('--aura', f.aura);
+    el.innerHTML = `
+      <div class="glow" aria-hidden="true"></div>
+      <div class="bottle" aria-hidden="true">${bottleSVG}</div>
+      <div class="house">${f.house}</div>
+      <div class="name">${f.name}</div>
+      <span class="fam">${f.fam}</span>
+      <div class="sizes" role="group" aria-label="Choose size for ${f.name}">
+        <button class="size" data-ml="2">2ml</button>
+        <button class="size active" data-ml="5">5ml</button>
+        <button class="size" data-ml="10">10ml</button>
+      </div>
+      <div class="foot">
+        <div class="price"><span class="cur">$</span><span class="amt">${f.p[5]}</span></div>
+        <button class="add">Add to bag</button>
+      </div>`;
+
+    const amt = el.querySelector('.amt');
+    el.querySelectorAll('.size').forEach(btn => {
+      btn.addEventListener('click', () => {
+        el.querySelectorAll('.size').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        amt.textContent = f.p[btn.dataset.ml];
       });
     });
-  </script>
+    el.querySelector('.add').addEventListener('click', () => {
+      cart++;
+      document.getElementById('cartCount').textContent = cart;
+      showToast(`Added ${f.name} to bag`);
+    });
+    grid.appendChild(el);
+  });
+
+  /* ---- Toast ---- */
+  const toast = document.getElementById('toast');
+  let toastTimer;
+  function showToast(msg){
+    toast.innerHTML = msg + ' — <b>keep exploring</b>';
+    toast.classList.add('show');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => toast.classList.remove('show'), 2200);
+  }
+
+  /* ---- Mobile menu ---- */
+  const menuBtn = document.getElementById('menuBtn');
+  const navLinks = document.getElementById('navLinks');
+  menuBtn.addEventListener('click', () => {
+    const open = navLinks.classList.toggle('open');
+    menuBtn.setAttribute('aria-expanded', open);
+  });
+  navLinks.querySelectorAll('a').forEach(a =>
+    a.addEventListener('click', () => { navLinks.classList.remove('open'); menuBtn.setAttribute('aria-expanded', false); })
+  );
+
+  /* ---- Newsletter ---- */
+  document.getElementById('joinBtn').addEventListener('click', () => {
+    const email = document.getElementById('email');
+    if (email.value && email.value.includes('@')) {
+      showToast('You\\'re on the list');
+      email.value = '';
+    } else {
+      email.focus();
+    }
+  });
+</script>
 </body>
 </html>
