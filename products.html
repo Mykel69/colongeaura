@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>The Collection — Cologne Aura</title>
-<meta name="description" content="Browse the Cologne Aura collection — authentic designer fragrances hand-decanted into 2ml, 5ml and 10ml samples.">
+<meta name="description" content="Browse the Cologne Aura collection — authentic designer fragrances hand-decanted into 5ml samples.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
@@ -145,7 +145,7 @@
     <div class="wrap">
       <span class="eyebrow">The collection</span>
       <h1>Every <em>aura</em>, by the millilitre</h1>
-      <p>Authentic designer fragrances, hand-decanted into 2, 5 &amp; 10ml. Filter by mood, find your match, then message us to order.</p>
+      <p>Authentic designer fragrances, hand-decanted into 5ml bottles. Filter by mood, find your match, then message us to order.</p>
     </div>
   </section>
 
@@ -170,7 +170,7 @@
       <h2>Checkout's on the way. <em>For now</em>, we do it personally.</h2>
       <p>While we finish building the shop, orders are handled by message — which honestly means better service and no fees eating into your order. Here's how it works:</p>
       <div class="order-steps">
-        <div class="ostep"><span class="n">1</span><span>Note the fragrances &amp; sizes you want</span></div>
+        <div class="ostep"><span class="n">1</span><span>Note the fragrances you want</span></div>
         <div class="ostep"><span class="n">2</span><span>DM or email us your list</span></div>
         <div class="ostep"><span class="n">3</span><span>We reply with a total &amp; payment details</span></div>
       </div>
@@ -194,21 +194,21 @@
      To add a product: copy a line below.
      img:  filename of a photo in this repo (e.g. "prada.png"). Omit img to show a placeholder.
      cat:  filter category -> fresh | woody | amber | sweet | fruity
-     p:    price per size in dollars { 2ml, 5ml, 10ml }
+     price: price of the 5ml bottle in dollars
   */
   const CATALOG = [
-    { name:"Luna Rossa Carbon", house:"Prada",                fam:"Aromatic",         cat:"fresh",  aura:"#7C93C9", img:"prada.png", p:{2:7,5:14,10:24} },
-    { name:"Sauvage",           house:"Dior",                 fam:"Aromatic Fougère", cat:"fresh",  aura:"#5AA9F0", p:{2:6,5:12,10:20} },
-    { name:"Bleu de Chanel",    house:"Chanel",               fam:"Woody Aromatic",   cat:"woody",  aura:"#46C7C7", p:{2:7,5:14,10:24} },
-    { name:"Aventus",           house:"Creed",                fam:"Fruity Chypre",    cat:"fruity", aura:"#C9B24E", p:{2:12,5:25,10:45} },
-    { name:"Tobacco Vanille",   house:"Tom Ford",             fam:"Amber Spicy",      cat:"amber",  aura:"#E08A3C", p:{2:11,5:24,10:42} },
-    { name:"Y Eau de Parfum",   house:"Yves Saint Laurent",   fam:"Aromatic Fresh",   cat:"fresh",  aura:"#8AA0F0", p:{2:6,5:12,10:20} },
-    { name:"Eros",              house:"Versace",              fam:"Aromatic Fresh",   cat:"sweet",  aura:"#4FC98A", p:{2:5,5:11,10:18} },
-    { name:"Le Male",           house:"Jean Paul Gaultier",   fam:"Oriental Fougère", cat:"sweet",  aura:"#A98CE0", p:{2:5,5:11,10:18} },
-    { name:"The Most Wanted",   house:"Azzaro",               fam:"Amber Fougère",    cat:"amber",  aura:"#E07050", p:{2:6,5:12,10:21} },
-    { name:"Homme Intense",     house:"Dior",                 fam:"Powdery Iris",     cat:"woody",  aura:"#B0A0C8", p:{2:8,5:16,10:28} },
-    { name:"Acqua di Giò Profumo", house:"Giorgio Armani",    fam:"Aquatic",          cat:"fresh",  aura:"#4FB6D0", p:{2:7,5:14,10:24} },
-    { name:"1 Million",         house:"Paco Rabanne",         fam:"Spicy Leather",    cat:"sweet",  aura:"#E0B84E", p:{2:5,5:10,10:17} },
+    { name:"Luna Rossa Carbon", house:"Prada",                fam:"Aromatic",         cat:"fresh",  aura:"#7C93C9", img:"prada.png", price:14 },
+    { name:"Sauvage",           house:"Dior",                 fam:"Aromatic Fougère", cat:"fresh",  aura:"#5AA9F0", price:12 },
+    { name:"Bleu de Chanel",    house:"Chanel",               fam:"Woody Aromatic",   cat:"woody",  aura:"#46C7C7", price:14 },
+    { name:"Aventus",           house:"Creed",                fam:"Fruity Chypre",    cat:"fruity", aura:"#C9B24E", price:25 },
+    { name:"Tobacco Vanille",   house:"Tom Ford",             fam:"Amber Spicy",      cat:"amber",  aura:"#E08A3C", price:24 },
+    { name:"Y Eau de Parfum",   house:"Yves Saint Laurent",   fam:"Aromatic Fresh",   cat:"fresh",  aura:"#8AA0F0", price:12 },
+    { name:"Eros",              house:"Versace",              fam:"Aromatic Fresh",   cat:"sweet",  aura:"#4FC98A", price:11 },
+    { name:"Le Male",           house:"Jean Paul Gaultier",   fam:"Oriental Fougère", cat:"sweet",  aura:"#A98CE0", price:11 },
+    { name:"The Most Wanted",   house:"Azzaro",               fam:"Amber Fougère",    cat:"amber",  aura:"#E07050", price:12 },
+    { name:"Homme Intense",     house:"Dior",                 fam:"Powdery Iris",     cat:"woody",  aura:"#B0A0C8", price:16 },
+    { name:"Acqua di Giò Profumo", house:"Giorgio Armani",    fam:"Aquatic",          cat:"fresh",  aura:"#4FB6D0", price:14 },
+    { name:"1 Million",         house:"Paco Rabanne",         fam:"Spicy Leather",    cat:"sweet",  aura:"#E0B84E", price:10 },
   ];
 
   const bottleSVG = `<svg viewBox="0 0 60 120" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -251,27 +251,13 @@
       <div class="house">${f.house}</div>
       <div class="name">${f.name}</div>
       <span class="fam">${f.fam}</span>
-      <div class="sizes" role="group" aria-label="Choose size for ${f.name}">
-        <button class="size" data-ml="2">2ml</button>
-        <button class="size active" data-ml="5">5ml</button>
-        <button class="size" data-ml="10">10ml</button>
-      </div>
       <div class="foot">
-        <div class="price"><span class="cur">$</span><span class="amt">${f.p[5]}</span></div>
+        <div class="price"><span class="cur">$</span><span class="amt">${f.price}</span></div>
         <a class="enquire" href="#order">Order</a>
       </div>`;
 
     card.appendChild(media);
     card.appendChild(body);
-
-    const amt = body.querySelector('.amt');
-    body.querySelectorAll('.size').forEach(btn => {
-      btn.addEventListener('click', () => {
-        body.querySelectorAll('.size').forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-        amt.textContent = f.p[btn.dataset.ml];
-      });
-    });
 
     grid.appendChild(card);
   });

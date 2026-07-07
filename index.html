@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Cologne Aura — Authentic Designer Fragrance, by the Millilitre</title>
-<meta name="description" content="Cologne Aura hand-decants authentic designer fragrances into 2ml, 5ml and 10ml samples. Try before you commit to a full bottle.">
+<meta name="description" content="Cologne Aura hand-decants authentic designer fragrances into 5ml samples. Try before you commit to a full bottle.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
@@ -291,7 +291,7 @@
     <div class="wrap">
       <span class="eyebrow">Authentic designer fragrance · by the millilitre</span>
       <h1>Find your <em>aura</em>.</h1>
-      <p class="lead">Designer scents shouldn't be a $150 gamble. We hand-decant the real thing into 2, 5 &amp; 10ml samples — so you can live with a fragrance before you commit to the full bottle.</p>
+      <p class="lead">Designer scents shouldn't be a $150 gamble. We hand-decant the real thing into 5ml samples — so you can live with a fragrance before you commit to the full bottle.</p>
       <div class="cta-row">
         <a href="#shop" class="btn btn-primary">Browse the collection</a>
         <a href="#how" class="btn btn-ghost">How it works</a>
@@ -309,7 +309,6 @@
         <p>Every decant is hand-poured from a genuine, retail-purchased bottle. No dupes, no clones, no mystery juice. Just the actual fragrance, in a size that fits your shelf and your budget.</p>
         <div class="points">
           <div class="point"><div class="k">40+</div><div class="v">Designer houses</div></div>
-          <div class="point"><div class="k">3</div><div class="v">Sizes to try</div></div>
           <div class="point"><div class="k">100%</div><div class="v">Authentic</div></div>
         </div>
       </div>
@@ -324,7 +323,7 @@
           <span class="eyebrow">The collection</span>
           <h2>This week's <em>auras</em></h2>
         </div>
-        <p>A rotating selection of the fragrances people ask for most. Pick a size, add to your bag.</p>
+        <p>A rotating selection of the fragrances people ask for most. Add to your bag.</p>
       </div>
       <div class="grid" id="grid"></div>
     </div>
@@ -342,7 +341,7 @@
       </div>
       <div class="steps">
         <div class="step"><div class="no">1</div><h3>Pick your scents</h3><p>Browse the collection and choose the fragrances you've been curious about.</p></div>
-        <div class="step"><div class="no">2</div><h3>Choose your size</h3><p>2ml for a taste, 5ml for a proper trial, 10ml if you already know you love it.</p></div>
+        <div class="step"><div class="no">2</div><h3>5ml bottle</h3><p>Every decant is a 5ml bottle — enough for two to three weeks of daily wear.</p></div>
         <div class="step"><div class="no">3</div><h3>Hand-decanted</h3><p>We pour from a sealed, authentic bottle into a clean glass atomiser and label it.</p></div>
         <div class="step"><div class="no">4</div><h3>Shipped to you</h3><p>Sealed, protected, and on its way — usually within two business days.</p></div>
       </div>
@@ -399,14 +398,14 @@
 <script>
   /* ---- Catalog data ---- */
   const CATALOG = [
-    { name:"Sauvage",         house:"Dior",           fam:"Aromatic Fougère", aura:"#5AA9F0", p:{2:6,5:12,10:20} },
-    { name:"Bleu de Chanel",  house:"Chanel",         fam:"Woody Aromatic",   aura:"#46C7C7", p:{2:7,5:14,10:24} },
-    { name:"Aventus",         house:"Creed",          fam:"Fruity Chypre",    aura:"#C9B24E", p:{2:12,5:25,10:45} },
-    { name:"Tobacco Vanille", house:"Tom Ford",       fam:"Amber Spicy",      aura:"#E08A3C", p:{2:11,5:24,10:42} },
-    { name:"Y Eau de Parfum", house:"Yves Saint Laurent", fam:"Aromatic Fresh", aura:"#8AA0F0", p:{2:6,5:12,10:20} },
-    { name:"Eros",            house:"Versace",        fam:"Aromatic Fresh",   aura:"#4FC98A", p:{2:5,5:11,10:18} },
-    { name:"Le Male",         house:"Jean Paul Gaultier", fam:"Oriental Fougère", aura:"#A98CE0", p:{2:5,5:11,10:18} },
-    { name:"The Most Wanted", house:"Azzaro",         fam:"Amber Fougère",    aura:"#E07050", p:{2:6,5:12,10:21} },
+    { name:"Sauvage",         house:"Dior",           fam:"Aromatic Fougère", aura:"#5AA9F0", price:12 },
+    { name:"Bleu de Chanel",  house:"Chanel",         fam:"Woody Aromatic",   aura:"#46C7C7", price:14 },
+    { name:"Aventus",         house:"Creed",          fam:"Fruity Chypre",    aura:"#C9B24E", price:25 },
+    { name:"Tobacco Vanille", house:"Tom Ford",       fam:"Amber Spicy",      aura:"#E08A3C", price:24 },
+    { name:"Y Eau de Parfum", house:"Yves Saint Laurent", fam:"Aromatic Fresh", aura:"#8AA0F0", price:12 },
+    { name:"Eros",            house:"Versace",        fam:"Aromatic Fresh",   aura:"#4FC98A", price:11 },
+    { name:"Le Male",         house:"Jean Paul Gaultier", fam:"Oriental Fougère", aura:"#A98CE0", price:11 },
+    { name:"The Most Wanted", house:"Azzaro",         fam:"Amber Fougère",    aura:"#E07050", price:12 },
   ];
 
   const bottleSVG = `<svg viewBox="0 0 60 120" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -430,24 +429,11 @@
       <div class="house">${f.house}</div>
       <div class="name">${f.name}</div>
       <span class="fam">${f.fam}</span>
-      <div class="sizes" role="group" aria-label="Choose size for ${f.name}">
-        <button class="size" data-ml="2">2ml</button>
-        <button class="size active" data-ml="5">5ml</button>
-        <button class="size" data-ml="10">10ml</button>
-      </div>
       <div class="foot">
-        <div class="price"><span class="cur">$</span><span class="amt">${f.p[5]}</span></div>
+        <div class="price"><span class="cur">$</span><span class="amt">${f.price}</span></div>
         <button class="add">Add to bag</button>
       </div>`;
 
-    const amt = el.querySelector('.amt');
-    el.querySelectorAll('.size').forEach(btn => {
-      btn.addEventListener('click', () => {
-        el.querySelectorAll('.size').forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-        amt.textContent = f.p[btn.dataset.ml];
-      });
-    });
     el.querySelector('.add').addEventListener('click', () => {
       cart++;
       document.getElementById('cartCount').textContent = cart;
@@ -481,7 +467,7 @@
   document.getElementById('joinBtn').addEventListener('click', () => {
     const email = document.getElementById('email');
     if (email.value && email.value.includes('@')) {
-      showToast('You\\'re on the list');
+      showToast('You\'re on the list');
       email.value = '';
     } else {
       email.focus();
