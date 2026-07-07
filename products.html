@@ -1,107 +1,319 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Our Products - Cologne Aura</title>
-  <style>
-    body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      margin: 0;
-      padding: 0;
-      background: #fff;
-      color: #111;
-    }
-    header {
-      background: linear-gradient(90deg, #1A1F71, #3b4cca);
-      color: white;
-      padding: 1.5rem 2rem;
-      text-align: center;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-    }
-    header h1 {
-      margin: 0;
-      font-weight: 800;
-      font-size: 2rem;
-    }
-    main {
-      max-width: 1000px;
-      margin: 2rem auto;
-      padding: 1rem;
-    }
-    .product-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 2rem;
-    }
-    .product {
-      background: #f9f9f9;
-      padding: 1rem;
-      border-radius: 10px;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-      text-align: center;
-    }
-    .product img {
-      width: 100%;
-      max-height: 250px;
-      object-fit: cover;
-      border-radius: 8px;
-    }
-    .product h3 {
-      color: #1A1F71;
-      font-size: 1.25rem;
-      margin: 0.75rem 0 0.5rem;
-    }
-    .product p {
-      font-size: 0.95rem;
-      color: #444;
-    }
-    a.back-link {
-      display: block;
-      margin-top: 2rem;
-      text-align: center;
-      color: #1A1F71;
-      font-weight: bold;
-      text-decoration: none;
-    }
-    a.back-link:hover {
-      text-decoration: underline;
-    }
-    @media (max-width: 600px) {
-      .product-grid {
-        grid-template-columns: 1fr;
-      }
-      header h1 {
-        font-size: 1.5rem;
-      }
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Collection — Cologne Aura</title>
+<meta name="description" content="Browse the Cologne Aura collection — authentic designer fragrances hand-decanted into 2ml, 5ml and 10ml samples.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#100D18;--ink-2:#16121F;--surface:#1C1727;--surface-2:#241E31;
+    --line:rgba(255,255,255,0.08);--line-strong:rgba(255,255,255,0.16);
+    --text:#F3EEF7;--muted:#A79FB4;--muted-2:#726A80;
+    --gold:#E9C489;--gold-deep:#C9A25E;
+    --display:"Cormorant Garamond",Georgia,serif;--body:"Jost",system-ui,sans-serif;--maxw:1180px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{background:var(--ink);color:var(--text);font-family:var(--body);font-weight:300;line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+  a{color:inherit;text-decoration:none}
+  img{max-width:100%;display:block}
+  ::selection{background:rgba(233,196,137,0.28);color:#fff}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 28px}
+  .eyebrow{font-size:.72rem;font-weight:500;letter-spacing:.32em;text-transform:uppercase;color:var(--gold)}
+
+  /* Header */
+  header{position:sticky;top:0;z-index:50;background:rgba(16,13,24,0.72);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+  .nav{display:flex;align-items:center;justify-content:space-between;height:76px}
+  .brand{display:flex;flex-direction:column;line-height:1;gap:2px}
+  .brand b{font-weight:500;letter-spacing:.34em;font-size:.7rem;color:var(--muted);text-transform:uppercase;padding-left:.34em}
+  .brand span{font-family:var(--display);font-size:1.55rem;font-weight:500;letter-spacing:.02em}
+  .brand span i{font-style:italic;color:var(--gold)}
+  .nav-links{display:flex;align-items:center;gap:34px}
+  .nav-links a{font-size:.86rem;letter-spacing:.04em;color:var(--muted);transition:color .25s}
+  .nav-links a:hover,.nav-links a.active{color:var(--text)}
+  .nav-links a.active{color:var(--gold)}
+  .order-pill{display:flex;align-items:center;gap:9px;border:1px solid var(--line-strong);border-radius:100px;padding:9px 18px;font-size:.82rem;letter-spacing:.05em;color:var(--text);background:rgba(255,255,255,0.02);transition:.25s}
+  .order-pill:hover{border-color:var(--gold);background:rgba(233,196,137,0.06);color:var(--gold)}
+  .menu-btn{display:none;background:none;border:0;color:var(--text);cursor:pointer;padding:6px}
+  .menu-btn svg{width:26px;height:26px}
+
+  /* Page hero */
+  .page-hero{position:relative;text-align:center;padding:96px 0 60px;overflow:hidden}
+  .page-hero .aura{position:absolute;top:30%;left:50%;transform:translate(-50%,-50%);width:min(620px,110vw);height:min(620px,110vw);border-radius:50%;background:radial-gradient(circle at 40% 40%,rgba(233,196,137,0.34),transparent 55%),radial-gradient(circle at 64% 60%,rgba(150,110,220,0.32),transparent 58%),radial-gradient(circle at 50% 68%,rgba(80,190,200,0.26),transparent 60%);filter:blur(56px);opacity:.85;z-index:0}
+  .page-hero .wrap{position:relative;z-index:2}
+  .page-hero .eyebrow{display:block;margin-bottom:20px}
+  .page-hero h1{font-family:var(--display);font-weight:300;font-size:clamp(2.8rem,8vw,5.4rem);line-height:1;letter-spacing:-.01em;margin-bottom:20px}
+  .page-hero h1 em{font-style:italic;color:var(--gold)}
+  .page-hero p{max-width:520px;margin:0 auto;color:var(--muted);font-size:1.04rem}
+
+  /* Filters */
+  .shop{padding:20px 0 96px}
+  .filters{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-bottom:52px}
+  .chip{cursor:pointer;font-family:var(--body);font-size:.8rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);background:transparent;border:1px solid var(--line);border-radius:100px;padding:9px 20px;transition:.24s}
+  .chip:hover{border-color:var(--line-strong);color:var(--text)}
+  .chip.active{background:rgba(233,196,137,0.12);border-color:var(--gold);color:var(--gold);font-weight:500}
+
+  /* Grid + cards */
+  .grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+  .card{position:relative;background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:22px 22px 22px;overflow:hidden;transition:border-color .3s,transform .3s}
+  .card:hover{border-color:var(--line-strong);transform:translateY(-4px)}
+  .media{position:relative;height:172px;display:flex;align-items:center;justify-content:center;margin-bottom:18px}
+  .media .glow{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:190px;height:190px;border-radius:50%;background:radial-gradient(circle,var(--aura),transparent 66%);filter:blur(34px);opacity:.5;transition:opacity .3s;pointer-events:none;z-index:0}
+  .card:hover .media .glow{opacity:.82}
+  .media .photo{position:relative;z-index:1;max-height:168px;width:auto;object-fit:contain;filter:drop-shadow(0 12px 24px rgba(0,0,0,.45))}
+  .media .bottle{position:relative;z-index:1;color:var(--aura)}
+  .media .bottle svg{height:130px}
+  .placeholder-tag{position:absolute;top:6px;right:6px;z-index:2;font-size:.58rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted-2);border:1px solid var(--line);border-radius:100px;padding:3px 9px}
+  .house{font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);margin-bottom:6px}
+  .name{font-family:var(--display);font-size:1.45rem;font-weight:500;line-height:1.05;margin-bottom:8px}
+  .fam{display:inline-block;font-size:.66rem;letter-spacing:.14em;text-transform:uppercase;color:var(--aura);border:1px solid var(--line-strong);border-radius:100px;padding:4px 11px;margin-bottom:18px}
+  .sizes{display:flex;gap:7px;margin-bottom:16px}
+  .size{flex:1;text-align:center;cursor:pointer;font-size:.8rem;padding:8px 0;border-radius:9px;border:1px solid var(--line);color:var(--muted);background:transparent;font-family:var(--body);transition:.22s}
+  .size:hover{border-color:var(--line-strong);color:var(--text)}
+  .size.active{background:rgba(233,196,137,0.12);border-color:var(--gold);color:var(--gold);font-weight:500}
+  .foot{display:flex;align-items:center;justify-content:space-between}
+  .price{font-family:var(--display);font-size:1.65rem;color:var(--text)}
+  .price .cur{font-size:1rem;vertical-align:super;color:var(--muted);margin-right:1px}
+  .enquire{background:transparent;border:1px solid var(--line-strong);color:var(--text);cursor:pointer;font-family:var(--body);font-size:.74rem;letter-spacing:.1em;text-transform:uppercase;padding:11px 18px;border-radius:100px;transition:.24s}
+  .enquire:hover{background:var(--gold);color:#221a0e;border-color:var(--gold)}
+  .empty{grid-column:1/-1;text-align:center;color:var(--muted);padding:60px 0;font-family:var(--display);font-size:1.4rem}
+
+  /* Order band */
+  .order{padding:96px 0;border-top:1px solid var(--line);text-align:center;position:relative;overflow:hidden}
+  .order .o-aura{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:600px;height:320px;border-radius:50%;background:radial-gradient(circle,rgba(233,196,137,0.2),transparent 65%);filter:blur(50px);z-index:0}
+  .order .wrap{position:relative;z-index:1}
+  .order h2{font-family:var(--display);font-weight:300;font-size:clamp(2rem,5vw,3.4rem);line-height:1.1;margin:16px auto 18px;max-width:18ch}
+  .order h2 em{font-style:italic;color:var(--gold)}
+  .order p{color:var(--muted);max-width:52ch;margin:0 auto 34px;font-size:1.04rem}
+  .order-steps{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;margin-bottom:38px}
+  .ostep{display:flex;align-items:center;gap:12px;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:16px 22px}
+  .ostep .n{font-family:var(--display);font-size:1.6rem;color:var(--gold);line-height:1}
+  .ostep span{font-size:.9rem;color:var(--muted);text-align:left}
+  .contacts{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+  .btn{display:inline-flex;align-items:center;gap:10px;cursor:pointer;font-family:var(--body);font-size:.84rem;letter-spacing:.08em;text-transform:uppercase;padding:14px 28px;border-radius:100px;border:1px solid transparent;transition:.28s}
+  .btn-primary{background:var(--gold);color:#221a0e;font-weight:500}
+  .btn-primary:hover{background:#f4d6a4;transform:translateY(-2px)}
+  .btn-ghost{border-color:var(--line-strong);color:var(--text)}
+  .btn-ghost:hover{border-color:var(--gold);color:var(--gold)}
+
+  /* Footer */
+  footer{border-top:1px solid var(--line);padding:44px 0}
+  .foot-in{display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap}
+  .foot-in small{color:var(--muted-2);font-size:.8rem;letter-spacing:.03em}
+  .foot-in .disc{color:var(--muted-2);font-size:.76rem;max-width:52ch;line-height:1.5}
+
+  @media(max-width:960px){.grid{grid-template-columns:repeat(2,1fr)}.foot-in{flex-direction:column;align-items:flex-start}}
+  @media(max-width:640px){
+    .nav-links{position:absolute;top:76px;left:0;right:0;flex-direction:column;gap:0;background:var(--ink-2);border-bottom:1px solid var(--line);max-height:0;overflow:hidden;transition:max-height .35s ease}
+    .nav-links.open{max-height:360px}
+    .nav-links a{padding:16px 28px;width:100%;border-top:1px solid var(--line)}
+    .nav-links .order-pill{margin:16px 28px;justify-content:center}
+    .menu-btn{display:block}
+    .grid{grid-template-columns:1fr}
+  }
+  @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important}}
+  :focus-visible{outline:2px solid var(--gold);outline-offset:3px;border-radius:4px}
+</style>
 </head>
 <body>
-  <header>
-    <h1>Our Canteen Scents</h1>
-  </header>
 
-  <main>
-    <div class="product-grid">
-      <div class="product">
-        <img src="8b93415f-213f-4668-b597-e9aaf4ed59b1.png" alt="YSL EDP">
-        <h3>YSL EDP</h3>
-        <p>A bold, seductive scent with notes of sage, tonka bean, and cedarwood. Perfect for a night out or a power move.</p>
+<header>
+  <div class="wrap nav">
+    <a class="brand" href="index.html" aria-label="Cologne Aura home">
+      <b>Cologne</b><span>Aura<i>.</i></span>
+    </a>
+    <nav class="nav-links" id="navLinks">
+      <a href="index.html">Home</a>
+      <a href="products.html" class="active">Shop</a>
+      <a href="index.html#how">How it works</a>
+      <a href="index.html#trust">Authenticity</a>
+      <a href="#order" class="order-pill">How to order</a>
+    </nav>
+    <button class="menu-btn" id="menuBtn" aria-label="Toggle menu" aria-expanded="false">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+    </button>
+  </div>
+</header>
+
+<main>
+  <section class="page-hero">
+    <div class="aura" aria-hidden="true"></div>
+    <div class="wrap">
+      <span class="eyebrow">The collection</span>
+      <h1>Every <em>aura</em>, by the millilitre</h1>
+      <p>Authentic designer fragrances, hand-decanted into 2, 5 &amp; 10ml. Filter by mood, find your match, then message us to order.</p>
+    </div>
+  </section>
+
+  <section class="shop">
+    <div class="wrap">
+      <div class="filters" id="filters" role="group" aria-label="Filter by scent family">
+        <button class="chip active" data-cat="all">All</button>
+        <button class="chip" data-cat="fresh">Fresh</button>
+        <button class="chip" data-cat="woody">Woody</button>
+        <button class="chip" data-cat="amber">Amber</button>
+        <button class="chip" data-cat="sweet">Sweet</button>
+        <button class="chip" data-cat="fruity">Fruity</button>
       </div>
-      <div class="product">
-        <img src="prada.png" alt="Prada Ocean">
-        <h3>Prada Ocean</h3>
-        <p>Fresh and invigorating with bergamot, iris, and vetiver. Designed for daytime confidence and clarity.</p>
+      <div class="grid" id="grid"></div>
+    </div>
+  </section>
+
+  <section class="order" id="order">
+    <div class="o-aura" aria-hidden="true"></div>
+    <div class="wrap">
+      <span class="eyebrow">Ordering</span>
+      <h2>Checkout's on the way. <em>For now</em>, we do it personally.</h2>
+      <p>While we finish building the shop, orders are handled by message — which honestly means better service and no fees eating into your order. Here's how it works:</p>
+      <div class="order-steps">
+        <div class="ostep"><span class="n">1</span><span>Note the fragrances &amp; sizes you want</span></div>
+        <div class="ostep"><span class="n">2</span><span>DM or email us your list</span></div>
+        <div class="ostep"><span class="n">3</span><span>We reply with a total &amp; payment details</span></div>
       </div>
-      <div class="product">
-        <img src="https://via.placeholder.com/300x250?text=Midnight+Ember" alt="Midnight Ember">
-        <h3>Midnight Ember</h3>
-        <p>A warm, mysterious blend still in development. Coming soon for those who like to leave a lasting impression.</p>
+      <div class="contacts">
+        <a class="btn btn-primary" href="#" id="igLink">Message on Instagram</a>
+        <a class="btn btn-ghost" href="mailto:hello@colongeaura.com?subject=Cologne%20Aura%20Order">Email your order</a>
       </div>
     </div>
+  </section>
+</main>
 
-    <a class="back-link" href="index.html">&larr; Back to Home</a>
-  </main>
+<footer>
+  <div class="wrap foot-in">
+    <small>© 2026 Cologne Aura. Crafted with obsession.</small>
+    <p class="disc">Cologne Aura sells hand-poured decants of authentic fragrances and is not affiliated with, endorsed by, or sponsored by any of the fragrance houses named. All trademarks belong to their respective owners.</p>
+  </div>
+</footer>
+
+<script>
+  /* ---- Catalog ----
+     To add a product: copy a line below.
+     img:  filename of a photo in this repo (e.g. "prada.png"). Omit img to show a placeholder.
+     cat:  filter category -> fresh | woody | amber | sweet | fruity
+     p:    price per size in dollars { 2ml, 5ml, 10ml }
+  */
+  const CATALOG = [
+    { name:"Luna Rossa Carbon", house:"Prada",                fam:"Aromatic",         cat:"fresh",  aura:"#7C93C9", img:"prada.png", p:{2:7,5:14,10:24} },
+    { name:"Sauvage",           house:"Dior",                 fam:"Aromatic Fougère", cat:"fresh",  aura:"#5AA9F0", p:{2:6,5:12,10:20} },
+    { name:"Bleu de Chanel",    house:"Chanel",               fam:"Woody Aromatic",   cat:"woody",  aura:"#46C7C7", p:{2:7,5:14,10:24} },
+    { name:"Aventus",           house:"Creed",                fam:"Fruity Chypre",    cat:"fruity", aura:"#C9B24E", p:{2:12,5:25,10:45} },
+    { name:"Tobacco Vanille",   house:"Tom Ford",             fam:"Amber Spicy",      cat:"amber",  aura:"#E08A3C", p:{2:11,5:24,10:42} },
+    { name:"Y Eau de Parfum",   house:"Yves Saint Laurent",   fam:"Aromatic Fresh",   cat:"fresh",  aura:"#8AA0F0", p:{2:6,5:12,10:20} },
+    { name:"Eros",              house:"Versace",              fam:"Aromatic Fresh",   cat:"sweet",  aura:"#4FC98A", p:{2:5,5:11,10:18} },
+    { name:"Le Male",           house:"Jean Paul Gaultier",   fam:"Oriental Fougère", cat:"sweet",  aura:"#A98CE0", p:{2:5,5:11,10:18} },
+    { name:"The Most Wanted",   house:"Azzaro",               fam:"Amber Fougère",    cat:"amber",  aura:"#E07050", p:{2:6,5:12,10:21} },
+    { name:"Homme Intense",     house:"Dior",                 fam:"Powdery Iris",     cat:"woody",  aura:"#B0A0C8", p:{2:8,5:16,10:28} },
+    { name:"Acqua di Giò Profumo", house:"Giorgio Armani",    fam:"Aquatic",          cat:"fresh",  aura:"#4FB6D0", p:{2:7,5:14,10:24} },
+    { name:"1 Million",         house:"Paco Rabanne",         fam:"Spicy Leather",    cat:"sweet",  aura:"#E0B84E", p:{2:5,5:10,10:17} },
+  ];
+
+  const bottleSVG = `<svg viewBox="0 0 60 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <rect x="24" y="4" width="12" height="10" rx="2" stroke="currentColor" stroke-width="1.5"/>
+    <rect x="27" y="14" width="6" height="8" fill="currentColor" opacity="0.5"/>
+    <path d="M14 30c0-4.4 3.6-8 8-8h16c4.4 0 8 3.6 8 8v72c0 4.4-3.6 8-8 8H22c-4.4 0-8-3.6-8-8V30Z" stroke="currentColor" stroke-width="1.5"/>
+    <path d="M14 46h32" stroke="currentColor" stroke-width="1" opacity="0.4"/>
+    <rect x="20" y="58" width="20" height="30" rx="3" fill="currentColor" opacity="0.14"/>
+  </svg>`;
+
+  function makeBottle(){ const d=document.createElement('div'); d.className='bottle'; d.innerHTML=bottleSVG; return d; }
+
+  const grid = document.getElementById('grid');
+
+  CATALOG.forEach(f => {
+    const card = document.createElement('article');
+    card.className = 'card';
+    card.dataset.cat = f.cat;
+    card.style.setProperty('--aura', f.aura);
+
+    const media = document.createElement('div');
+    media.className = 'media';
+    media.innerHTML = `<div class="glow" aria-hidden="true"></div>`;
+
+    if (f.img) {
+      const img = document.createElement('img');
+      img.className = 'photo'; img.src = f.img; img.alt = `${f.house} ${f.name}`; img.loading = 'lazy';
+      // Graceful fallback if the photo isn't uploaded yet
+      img.addEventListener('error', () => { img.remove(); media.appendChild(makeBottle()); });
+      media.appendChild(img);
+    } else {
+      media.appendChild(makeBottle());
+      const tag = document.createElement('span');
+      tag.className = 'placeholder-tag'; tag.textContent = 'Photo soon';
+      media.appendChild(tag);
+    }
+
+    const body = document.createElement('div');
+    body.innerHTML = `
+      <div class="house">${f.house}</div>
+      <div class="name">${f.name}</div>
+      <span class="fam">${f.fam}</span>
+      <div class="sizes" role="group" aria-label="Choose size for ${f.name}">
+        <button class="size" data-ml="2">2ml</button>
+        <button class="size active" data-ml="5">5ml</button>
+        <button class="size" data-ml="10">10ml</button>
+      </div>
+      <div class="foot">
+        <div class="price"><span class="cur">$</span><span class="amt">${f.p[5]}</span></div>
+        <a class="enquire" href="#order">Order</a>
+      </div>`;
+
+    card.appendChild(media);
+    card.appendChild(body);
+
+    const amt = body.querySelector('.amt');
+    body.querySelectorAll('.size').forEach(btn => {
+      btn.addEventListener('click', () => {
+        body.querySelectorAll('.size').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        amt.textContent = f.p[btn.dataset.ml];
+      });
+    });
+
+    grid.appendChild(card);
+  });
+
+  /* ---- Filters ---- */
+  const chips = document.querySelectorAll('.chip');
+  const cards = () => document.querySelectorAll('.card');
+  chips.forEach(chip => {
+    chip.addEventListener('click', () => {
+      chips.forEach(c => c.classList.remove('active'));
+      chip.classList.add('active');
+      const cat = chip.dataset.cat;
+      let shown = 0;
+      cards().forEach(card => {
+        const match = cat === 'all' || card.dataset.cat === cat;
+        card.style.display = match ? '' : 'none';
+        if (match) shown++;
+      });
+      const existing = document.querySelector('.empty');
+      if (existing) existing.remove();
+      if (shown === 0) {
+        const e = document.createElement('div');
+        e.className = 'empty'; e.textContent = 'Nothing in this family yet — check back soon.';
+        grid.appendChild(e);
+      }
+    });
+  });
+
+  /* ---- Mobile menu ---- */
+  const menuBtn = document.getElementById('menuBtn');
+  const navLinks = document.getElementById('navLinks');
+  menuBtn.addEventListener('click', () => {
+    const open = navLinks.classList.toggle('open');
+    menuBtn.setAttribute('aria-expanded', open);
+  });
+  navLinks.querySelectorAll('a').forEach(a =>
+    a.addEventListener('click', () => { navLinks.classList.remove('open'); menuBtn.setAttribute('aria-expanded', false); })
+  );
+
+  /* ---- Instagram link placeholder ----
+     Replace YOUR_HANDLE below with your real Instagram username. */
+  document.getElementById('igLink').href = 'https://instagram.com/YOUR_HANDLE';
+</script>
 </body>
 </html>
