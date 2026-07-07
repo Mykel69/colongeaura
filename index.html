@@ -217,6 +217,20 @@
   .soc:hover{border-color:var(--gold);color:var(--gold);transform:translateY(-3px)}
   .soc svg{width:22px;height:22px}
 
+  /* ---------- Contact ---------- */
+  .contact{padding:96px 0;border-top:1px solid var(--line)}
+  .contact .wrap{max-width:640px}
+  .contact-form{display:flex;flex-direction:column;gap:14px;margin-top:28px}
+  .contact-form input,.contact-form textarea{
+    background:var(--surface);border:1px solid var(--line);color:var(--text);
+    font-family:var(--body);font-size:.92rem;padding:15px 18px;border-radius:16px;outline:none;transition:border-color .25s;
+  }
+  .contact-form textarea{resize:vertical;min-height:130px}
+  .contact-form input:focus,.contact-form textarea:focus{border-color:var(--gold)}
+  .contact-form input::placeholder,.contact-form textarea::placeholder{color:var(--muted-2)}
+  .contact-form button{align-self:flex-start}
+  .contact-form button:disabled{opacity:.6;cursor:default}
+
   /* ---------- Footer ---------- */
   footer{border-top:1px solid var(--line);padding:44px 0}
   .foot-in{display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap}
@@ -274,7 +288,7 @@
       <a href="products.html">Shop</a>
       <a href="#how">How it works</a>
       <a href="#trust">Authenticity</a>
-      <a href="#join">Contact</a>
+      <a href="#contact">Contact</a>
       <a href="#shop" class="cart">Bag <span class="count" id="cartCount">0</span></a>
     </nav>
     <button class="menu-btn" id="menuBtn" aria-label="Toggle menu" aria-expanded="false">
@@ -369,10 +383,11 @@
       <div>
         <h2>Join the <em style="font-family:var(--display);font-style:italic;color:var(--gold)">list</em>.</h2>
         <p>New drops, restocks and members-only bundles — straight to your inbox. No spam, just scent.</p>
-        <div class="field">
-          <input type="email" id="email" placeholder="you@email.com" aria-label="Email address">
-          <button class="btn btn-primary" id="joinBtn">Notify me</button>
-        </div>
+        <form class="field" id="joinForm" action="https://formspree.io/f/xanjzyvp" method="POST">
+          <input type="email" name="email" id="email" placeholder="you@email.com" aria-label="Email address" required>
+          <input type="hidden" name="_subject" value="New newsletter signup — Cologne Aura">
+          <button class="btn btn-primary" type="submit">Notify me</button>
+        </form>
       </div>
       <div>
         <p style="text-align:right;color:var(--muted);margin-bottom:18px;letter-spacing:.04em">Find us on socials</p>
@@ -382,6 +397,22 @@
           <a class="soc" href="#" aria-label="Email"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M4 7l8 5 8-5"/></svg></a>
         </div>
       </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section class="contact" id="contact">
+    <div class="wrap">
+      <span class="eyebrow">Get in touch</span>
+      <h2 style="font-family:var(--display);font-weight:300;font-size:clamp(2rem,4.4vw,3rem);line-height:1.08;margin-top:14px">Say <em style="font-style:italic;color:var(--gold)">hello</em>.</h2>
+      <p style="color:var(--muted);margin-top:14px">Questions about an order, a fragrance, or anything else — send us a note and we'll get back to you.</p>
+      <form class="contact-form" id="contactForm" action="https://formspree.io/f/xanjzyvp" method="POST">
+        <input type="text" name="name" placeholder="Your name" aria-label="Name" required>
+        <input type="email" name="email" placeholder="you@email.com" aria-label="Email address" required>
+        <textarea name="message" placeholder="Your message" aria-label="Message" required></textarea>
+        <input type="hidden" name="_subject" value="New contact form message — Cologne Aura">
+        <button class="btn btn-primary" type="submit">Send message</button>
+      </form>
     </div>
   </section>
 </main>
@@ -463,15 +494,50 @@
     a.addEventListener('click', () => { navLinks.classList.remove('open'); menuBtn.setAttribute('aria-expanded', false); })
   );
 
+  /* ---- Formspree submissions ---- */
+  function submitToFormspree(form, onSuccess){
+    const btn = form.querySelector('button[type="submit"]');
+    const label = btn.textContent;
+    btn.disabled = true;
+    btn.textContent = 'Sending…';
+    fetch(form.action, {
+      method: 'POST',
+      body: new FormData(form),
+      headers: { 'Accept': 'application/json' }
+    }).then(res => {
+      if (res.ok) {
+        onSuccess();
+      } else {
+        showToast('Something went wrong — please try again');
+      }
+    }).catch(() => {
+      showToast('Something went wrong — please try again');
+    }).finally(() => {
+      btn.disabled = false;
+      btn.textContent = label;
+    });
+  }
+
   /* ---- Newsletter ---- */
-  document.getElementById('joinBtn').addEventListener('click', () => {
+  const joinForm = document.getElementById('joinForm');
+  joinForm.addEventListener('submit', (e) => {
+    e.preventDefault();
     const email = document.getElementById('email');
-    if (email.value && email.value.includes('@')) {
+    if (!email.value || !email.value.includes('@')) { email.focus(); return; }
+    submitToFormspree(joinForm, () => {
       showToast('You\'re on the list');
       email.value = '';
-    } else {
-      email.focus();
-    }
+    });
+  });
+
+  /* ---- Contact form ---- */
+  const contactForm = document.getElementById('contactForm');
+  contactForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    submitToFormspree(contactForm, () => {
+      showToast('Message sent — we\'ll be in touch');
+      contactForm.reset();
+    });
   });
 </script>
 </body>
