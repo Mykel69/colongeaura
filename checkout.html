@@ -77,16 +77,9 @@
   .confirm h2{font-family:var(--display);font-weight:300;font-size:clamp(2rem,4.4vw,3rem);margin-bottom:16px}
   .confirm p{color:var(--muted)}
 
-  .checkout-form{display:flex;flex-direction:column;gap:14px;max-width:520px;margin-top:44px}
-  .checkout-form input,.checkout-form textarea{
-    background:var(--surface);border:1px solid var(--line);color:var(--text);
-    font-family:var(--body);font-size:.92rem;padding:15px 18px;border-radius:16px;outline:none;transition:border-color .25s;
-  }
-  .checkout-form textarea{resize:vertical;min-height:110px}
-  .checkout-form input:focus,.checkout-form textarea:focus{border-color:var(--gold)}
-  .checkout-form input::placeholder,.checkout-form textarea::placeholder{color:var(--muted-2)}
-  .checkout-form button{align-self:flex-start}
-  .checkout-form button:disabled{opacity:.6;cursor:default}
+  .bag-actions{margin-top:36px;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+  .bag-actions button:disabled{opacity:.6;cursor:default}
+  .bag-note{color:var(--muted-2);font-size:.78rem;max-width:52ch;margin-top:14px}
 
   /* Footer */
   footer{border-top:1px solid var(--line);padding:44px 0}
@@ -146,7 +139,7 @@
       <div class="intro">
         <span class="eyebrow">Your selection</span>
         <h1>Your <em>bag</em>.</h1>
-        <p>Review your picks below, send us your details, and we'll follow up by email with a total and payment instructions — no online payment yet, just real, personal service.</p>
+        <p>Review your picks below, then check out securely — payment is handled by Stripe, so your card details never touch our servers.</p>
       </div>
       <div id="bagBody"></div>
     </div>
@@ -163,6 +156,8 @@
 <div class="toast" id="toast"></div>
 
 <script>
+  const WORKER_URL = 'https://colongeaura-checkout.colongeaura.workers.dev';
+
   function getCart(){ try { return JSON.parse(localStorage.getItem('caCart')) || []; } catch(e){ return []; } }
   function saveCart(cart){ localStorage.setItem('caCart', JSON.stringify(cart)); }
   function cartCount(cart){ return cart.reduce((n, i) => n + i.qty, 0); }
@@ -209,14 +204,10 @@
     bagBody.innerHTML = `
       <div class="bag-items">${items}</div>
       <div class="bag-total"><span class="label">Total</span><span class="amt">$${cartTotal(cart)}</span></div>
-      <form class="checkout-form" id="checkoutForm" action="https://formspree.io/f/xanjzyvp" method="POST">
-        <input type="text" name="name" placeholder="Your name" aria-label="Name" required>
-        <input type="email" name="email" placeholder="you@email.com" aria-label="Email address" required>
-        <textarea name="notes" placeholder="Delivery address, notes, or preferences (optional)" aria-label="Notes"></textarea>
-        <input type="hidden" name="order" id="orderSummary">
-        <input type="hidden" name="_subject" value="New order request — Cologne Aura">
-        <button class="btn btn-primary" type="submit">Send order request</button>
-      </form>`;
+      <div class="bag-actions">
+        <button class="btn btn-primary" id="payBtn">Pay now</button>
+      </div>
+      <p class="bag-note">You'll enter shipping and payment details on Stripe's secure checkout page.</p>`;
 
     bagBody.querySelectorAll('.remove').forEach(btn => {
       btn.addEventListener('click', () => {
@@ -226,48 +217,52 @@
       });
     });
 
-    document.getElementById('checkoutForm').addEventListener('submit', (e) => {
-      e.preventDefault();
-      const form = e.target;
-      const currentCart = getCart();
-      const summary = currentCart
-        .map(i => `${i.qty}x ${i.name} (${i.house}) — $${i.price} each = $${i.price * i.qty}`)
-        .join('\n') + `\n\nTotal: $${cartTotal(currentCart)}`;
-      document.getElementById('orderSummary').value = summary;
-
-      const btn = form.querySelector('button[type="submit"]');
+    document.getElementById('payBtn').addEventListener('click', () => {
+      const btn = document.getElementById('payBtn');
       const label = btn.textContent;
       btn.disabled = true;
-      btn.textContent = 'Sending…';
+      btn.textContent = 'Redirecting…';
 
-      fetch(form.action, {
+      const currentCart = getCart();
+      fetch(WORKER_URL, {
         method: 'POST',
-        body: new FormData(form),
-        headers: { 'Accept': 'application/json' }
-      }).then(res => {
-        if (res.ok) {
-          saveCart([]);
-          document.getElementById('cartCount').textContent = 0;
-          bagBody.innerHTML = `
-            <div class="confirm">
-              <h2>Order request sent.</h2>
-              <p>We'll follow up by email with a total and payment details shortly.</p>
-              <a class="btn btn-ghost" href="products.html" style="margin-top:24px">Keep browsing</a>
-            </div>`;
-        } else {
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ items: currentCart.map(i => ({ name: i.name, qty: i.qty })) })
+      }).then(res => res.json().then(data => ({ ok: res.ok, data })))
+        .then(({ ok, data }) => {
+          if (ok && data.url) {
+            window.location.href = data.url;
+          } else {
+            btn.disabled = false;
+            btn.textContent = label;
+            showToast(data.error || 'Something went wrong — please try again');
+          }
+        }).catch(() => {
           btn.disabled = false;
           btn.textContent = label;
           showToast('Something went wrong — please try again');
-        }
-      }).catch(() => {
-        btn.disabled = false;
-        btn.textContent = label;
-        showToast('Something went wrong — please try again');
-      });
+        });
     });
   }
 
-  render();
+  const params = new URLSearchParams(window.location.search);
+  if (params.get('success') === 'true') {
+    saveCart([]);
+    document.getElementById('cartCount').textContent = 0;
+    bagBody.innerHTML = `
+      <div class="confirm">
+        <h2>Payment received — thank you!</h2>
+        <p>Your order is confirmed. We'll be in touch with shipping details shortly.</p>
+        <a class="btn btn-ghost" href="products.html" style="margin-top:24px">Keep browsing</a>
+      </div>`;
+    window.history.replaceState({}, '', 'checkout.html');
+  } else {
+    if (params.get('canceled') === 'true') {
+      showToast('Payment canceled — your bag is still here');
+      window.history.replaceState({}, '', 'checkout.html');
+    }
+    render();
+  }
 
   /* ---- Mobile menu ---- */
   const menuBtn = document.getElementById('menuBtn');
