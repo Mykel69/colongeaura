@@ -36,8 +36,9 @@
   .nav-links a{font-size:.86rem;letter-spacing:.04em;color:var(--muted);transition:color .25s}
   .nav-links a:hover,.nav-links a.active{color:var(--text)}
   .nav-links a.active{color:var(--gold)}
-  .order-pill{display:flex;align-items:center;gap:9px;border:1px solid var(--line-strong);border-radius:100px;padding:9px 18px;font-size:.82rem;letter-spacing:.05em;color:var(--text);background:rgba(255,255,255,0.02);transition:.25s}
-  .order-pill:hover{border-color:var(--gold);background:rgba(233,196,137,0.06);color:var(--gold)}
+  .cart{display:flex;align-items:center;gap:9px;border:1px solid var(--line-strong);border-radius:100px;padding:9px 16px;font-size:.82rem;letter-spacing:.05em;color:var(--text);background:rgba(255,255,255,0.02);transition:border-color .25s,background .25s}
+  .cart:hover{border-color:var(--gold);background:rgba(233,196,137,0.06)}
+  .cart .count{color:var(--gold);font-weight:500}
   .menu-btn{display:none;background:none;border:0;color:var(--text);cursor:pointer;padding:6px}
   .menu-btn svg{width:26px;height:26px}
 
@@ -78,8 +79,9 @@
   .foot{display:flex;align-items:center;justify-content:space-between}
   .price{font-family:var(--display);font-size:1.65rem;color:var(--text)}
   .price .cur{font-size:1rem;vertical-align:super;color:var(--muted);margin-right:1px}
-  .enquire{background:transparent;border:1px solid var(--line-strong);color:var(--text);cursor:pointer;font-family:var(--body);font-size:.74rem;letter-spacing:.1em;text-transform:uppercase;padding:11px 18px;border-radius:100px;transition:.24s}
-  .enquire:hover{background:var(--gold);color:#221a0e;border-color:var(--gold)}
+  .add{background:transparent;border:1px solid var(--line-strong);color:var(--text);cursor:pointer;font-family:var(--body);font-size:.74rem;letter-spacing:.1em;text-transform:uppercase;padding:11px 18px;border-radius:100px;transition:.24s}
+  .add:hover{background:var(--gold);color:#221a0e;border-color:var(--gold)}
+  .add:active{transform:scale(.96)}
   .empty{grid-column:1/-1;text-align:center;color:var(--muted);padding:60px 0;font-family:var(--display);font-size:1.4rem}
 
   /* Order band */
@@ -89,10 +91,6 @@
   .order h2{font-family:var(--display);font-weight:300;font-size:clamp(2rem,5vw,3.4rem);line-height:1.1;margin:16px auto 18px;max-width:18ch}
   .order h2 em{font-style:italic;color:var(--gold)}
   .order p{color:var(--muted);max-width:52ch;margin:0 auto 34px;font-size:1.04rem}
-  .order-steps{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;margin-bottom:38px}
-  .ostep{display:flex;align-items:center;gap:12px;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:16px 22px}
-  .ostep .n{font-family:var(--display);font-size:1.6rem;color:var(--gold);line-height:1}
-  .ostep span{font-size:.9rem;color:var(--muted);text-align:left}
   .contacts{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
   .btn{display:inline-flex;align-items:center;gap:10px;cursor:pointer;font-family:var(--body);font-size:.84rem;letter-spacing:.08em;text-transform:uppercase;padding:14px 28px;border-radius:100px;border:1px solid transparent;transition:.28s}
   .btn-primary{background:var(--gold);color:#221a0e;font-weight:500}
@@ -106,12 +104,21 @@
   .foot-in small{color:var(--muted-2);font-size:.8rem;letter-spacing:.03em}
   .foot-in .disc{color:var(--muted-2);font-size:.76rem;max-width:52ch;line-height:1.5}
 
+  /* Toast */
+  .toast{
+    position:fixed;bottom:26px;left:50%;transform:translateX(-50%) translateY(140%);
+    background:var(--surface-2);border:1px solid var(--gold);color:var(--text);
+    padding:14px 24px;border-radius:100px;font-size:.86rem;letter-spacing:.04em;z-index:100;
+    box-shadow:0 10px 40px rgba(0,0,0,.5);transition:transform .4s cubic-bezier(.2,.9,.3,1.3);
+  }
+  .toast.show{transform:translateX(-50%) translateY(0)}
+
   @media(max-width:960px){.grid{grid-template-columns:repeat(2,1fr)}.foot-in{flex-direction:column;align-items:flex-start}}
   @media(max-width:640px){
     .nav-links{position:absolute;top:76px;left:0;right:0;flex-direction:column;gap:0;background:var(--ink-2);border-bottom:1px solid var(--line);max-height:0;overflow:hidden;transition:max-height .35s ease}
     .nav-links.open{max-height:360px}
     .nav-links a{padding:16px 28px;width:100%;border-top:1px solid var(--line)}
-    .nav-links .order-pill{margin:16px 28px;justify-content:center}
+    .nav-links .cart{margin:16px 28px;justify-content:center}
     .menu-btn{display:block}
     .grid{grid-template-columns:1fr}
   }
@@ -131,7 +138,7 @@
       <a href="products.html" class="active">Shop</a>
       <a href="index.html#how">How it works</a>
       <a href="index.html#trust">Authenticity</a>
-      <a href="#order" class="order-pill">How to order</a>
+      <a href="checkout.html" class="cart">Bag <span class="count" id="cartCount">0</span></a>
     </nav>
     <button class="menu-btn" id="menuBtn" aria-label="Toggle menu" aria-expanded="false">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
@@ -145,7 +152,7 @@
     <div class="wrap">
       <span class="eyebrow">The collection</span>
       <h1>Every <em>aura</em>, by the millilitre</h1>
-      <p>Authentic designer fragrances, hand-decanted into 5ml bottles. Filter by mood, find your match, then message us to order.</p>
+      <p>Authentic designer fragrances, hand-decanted into 5ml bottles. Filter by mood, find your match, then add it to your bag.</p>
     </div>
   </section>
 
@@ -166,17 +173,11 @@
   <section class="order" id="order">
     <div class="o-aura" aria-hidden="true"></div>
     <div class="wrap">
-      <span class="eyebrow">Ordering</span>
-      <h2>Checkout's on the way. <em>For now</em>, we do it personally.</h2>
-      <p>While we finish building the shop, orders are handled by message — which honestly means better service and no fees eating into your order. Here's how it works:</p>
-      <div class="order-steps">
-        <div class="ostep"><span class="n">1</span><span>Note the fragrances you want</span></div>
-        <div class="ostep"><span class="n">2</span><span>DM or email us your list</span></div>
-        <div class="ostep"><span class="n">3</span><span>We reply with a total &amp; payment details</span></div>
-      </div>
+      <span class="eyebrow">Ready when you are</span>
+      <h2>Add it to your <em>bag</em>, checkout's real.</h2>
+      <p>Pick your favorites above, then head to your bag to check out securely — payment is handled by Stripe, so your card details never touch our servers.</p>
       <div class="contacts">
-        <a class="btn btn-primary" href="#" id="igLink">Message on Instagram</a>
-        <a class="btn btn-ghost" href="mailto:hello@colongeaura.com?subject=Cologne%20Aura%20Order">Email your order</a>
+        <a class="btn btn-primary" href="checkout.html">View my bag</a>
       </div>
     </div>
   </section>
@@ -188,6 +189,8 @@
     <p class="disc">Cologne Aura sells hand-poured decants of authentic fragrances and is not affiliated with, endorsed by, or sponsored by any of the fragrance houses named. All trademarks belong to their respective owners.</p>
   </div>
 </footer>
+
+<div class="toast" id="toast"></div>
 
 <script>
   /* ---- Catalog ----
@@ -223,6 +226,34 @@
 
   const grid = document.getElementById('grid');
 
+  /* ---- Cart (persisted in localStorage, shared with index.html/checkout.html) ---- */
+  function getCart(){
+    try { return JSON.parse(localStorage.getItem('caCart')) || []; } catch(e){ return []; }
+  }
+  function saveCart(cart){ localStorage.setItem('caCart', JSON.stringify(cart)); }
+  function cartCount(cart){ return cart.reduce((n, i) => n + i.qty, 0); }
+  function addToCart(item){
+    const cart = getCart();
+    const existing = cart.find(i => i.name === item.name);
+    if (existing) existing.qty++;
+    else cart.push({ ...item, qty: 1 });
+    saveCart(cart);
+    return cart;
+  }
+  function updateCartBadge(cart){
+    document.getElementById('cartCount').textContent = cartCount(cart);
+  }
+  updateCartBadge(getCart());
+
+  const toast = document.getElementById('toast');
+  let toastTimer;
+  function showToast(msg){
+    toast.textContent = msg;
+    toast.classList.add('show');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => toast.classList.remove('show'), 2200);
+  }
+
   CATALOG.forEach(f => {
     const card = document.createElement('article');
     card.className = 'card';
@@ -253,11 +284,17 @@
       <span class="fam">${f.fam}</span>
       <div class="foot">
         <div class="price"><span class="cur">$</span><span class="amt">${f.price}</span></div>
-        <a class="enquire" href="#order">Order</a>
+        <button class="add">Add to bag</button>
       </div>`;
 
     card.appendChild(media);
     card.appendChild(body);
+
+    body.querySelector('.add').addEventListener('click', () => {
+      const cart = addToCart({ name: f.name, house: f.house, price: f.price });
+      updateCartBadge(cart);
+      showToast(`Added ${f.name} to bag`);
+    });
 
     grid.appendChild(card);
   });
@@ -296,10 +333,6 @@
   navLinks.querySelectorAll('a').forEach(a =>
     a.addEventListener('click', () => { navLinks.classList.remove('open'); menuBtn.setAttribute('aria-expanded', false); })
   );
-
-  /* ---- Instagram link placeholder ----
-     Replace YOUR_HANDLE below with your real Instagram username. */
-  document.getElementById('igLink').href = 'https://instagram.com/YOUR_HANDLE';
 </script>
 </body>
 </html>
