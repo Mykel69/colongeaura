@@ -289,7 +289,7 @@
       <a href="#how">How it works</a>
       <a href="#trust">Authenticity</a>
       <a href="#contact">Contact</a>
-      <a href="#shop" class="cart">Bag <span class="count" id="cartCount">0</span></a>
+      <a href="checkout.html" class="cart">Bag <span class="count" id="cartCount">0</span></a>
     </nav>
     <button class="menu-btn" id="menuBtn" aria-label="Toggle menu" aria-expanded="false">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
@@ -426,6 +426,10 @@
 
 <div class="toast" id="toast">Added to bag — <b>keep exploring</b></div>
 
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+<script>
+  emailjs.init({ publicKey: "oA7pTzEGhkbZ99wPY" });
+</script>
 <script>
   /* ---- Catalog data ---- */
   const CATALOG = [
@@ -448,7 +452,25 @@
   </svg>`;
 
   const grid = document.getElementById('grid');
-  let cart = 0;
+
+  /* ---- Cart (persisted in localStorage, shared with checkout.html) ---- */
+  function getCart(){
+    try { return JSON.parse(localStorage.getItem('caCart')) || []; } catch(e){ return []; }
+  }
+  function saveCart(cart){ localStorage.setItem('caCart', JSON.stringify(cart)); }
+  function cartCount(cart){ return cart.reduce((n, i) => n + i.qty, 0); }
+  function addToCart(item){
+    const cart = getCart();
+    const existing = cart.find(i => i.name === item.name);
+    if (existing) existing.qty++;
+    else cart.push({ ...item, qty: 1 });
+    saveCart(cart);
+    return cart;
+  }
+  function updateCartBadge(cart){
+    document.getElementById('cartCount').textContent = cartCount(cart);
+  }
+  updateCartBadge(getCart());
 
   CATALOG.forEach((f, i) => {
     const el = document.createElement('article');
@@ -466,8 +488,8 @@
       </div>`;
 
     el.querySelector('.add').addEventListener('click', () => {
-      cart++;
-      document.getElementById('cartCount').textContent = cart;
+      const cart = addToCart({ name: f.name, house: f.house, price: f.price });
+      updateCartBadge(cart);
       showToast(`Added ${f.name} to bag`);
     });
     grid.appendChild(el);
@@ -524,9 +546,12 @@
     e.preventDefault();
     const email = document.getElementById('email');
     if (!email.value || !email.value.includes('@')) { email.focus(); return; }
+    const subscriberEmail = email.value;
     submitToFormspree(joinForm, () => {
       showToast('You\'re on the list');
       email.value = '';
+      emailjs.send('service_foaxg3e', 'template_stw0sp5', { email: subscriberEmail })
+        .catch(err => console.error('EmailJS welcome email failed:', err));
     });
   });
 
