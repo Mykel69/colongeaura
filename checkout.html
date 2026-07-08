@@ -125,6 +125,7 @@
       <a href="products.html">Shop</a>
       <a href="index.html#how">How it works</a>
       <a href="index.html#contact">Contact</a>
+      <a href="account.html">Account</a>
       <a href="checkout.html" class="cart active">Bag <span class="count" id="cartCount">0</span></a>
     </nav>
     <button class="menu-btn" id="menuBtn" aria-label="Toggle menu" aria-expanded="false">
@@ -155,7 +156,13 @@
 
 <div class="toast" id="toast"></div>
 
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
+  const sb = window.supabase.createClient(
+    'https://peyhvqpcafaxklflmnba.supabase.co',
+    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBleWh2cXBjYWZheGtsZmxtbmJhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODM0NzQzNTEsImV4cCI6MjA5OTA1MDM1MX0.tseJ9CoUF33a5AapdlU3JBsuC12dc-CYFwHpuJnPlsU'
+  );
+
   const WORKER_URL = 'https://colongeaura-checkout.colongeaura.workers.dev';
 
   function getCart(){ try { return JSON.parse(localStorage.getItem('caCart')) || []; } catch(e){ return []; } }
@@ -247,6 +254,7 @@
 
   const params = new URLSearchParams(window.location.search);
   if (params.get('success') === 'true') {
+    const orderedCart = getCart();
     saveCart([]);
     document.getElementById('cartCount').textContent = 0;
     bagBody.innerHTML = `
@@ -256,6 +264,18 @@
         <a class="btn btn-ghost" href="products.html" style="margin-top:24px">Keep browsing</a>
       </div>`;
     window.history.replaceState({}, '', 'checkout.html');
+
+    if (orderedCart.length) {
+      sb.auth.getSession().then(({ data: { session } }) => {
+        if (session) {
+          sb.from('orders').insert({
+            user_id: session.user.id,
+            items: orderedCart,
+            total: cartTotal(orderedCart)
+          });
+        }
+      });
+    }
   } else {
     if (params.get('canceled') === 'true') {
       showToast('Payment canceled — your bag is still here');
