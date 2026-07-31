@@ -103,18 +103,24 @@
     50%{transform:translate(-50%,-50%) scale(1.09);opacity:1}
   }
   .hero .wrap{position:relative;z-index:2}
+  .hero-inner{display:grid;grid-template-columns:0.95fr 1.05fr;gap:60px;align-items:center;text-align:left}
+  .hero-art img{
+    width:100%;max-width:420px;display:block;margin:0 auto;
+    border-radius:20px;border:1px solid var(--line-strong);
+    box-shadow:0 24px 70px rgba(0,0,0,.55), 0 0 60px rgba(233,196,137,0.08);
+  }
   .hero .eyebrow{display:block;margin-bottom:26px}
   .hero h1{
     font-family:var(--display);font-weight:300;
-    font-size:clamp(3.4rem,10vw,7.2rem);line-height:.98;letter-spacing:-.01em;
+    font-size:clamp(2.8rem,6.4vw,5.4rem);line-height:.98;letter-spacing:-.01em;
     margin-bottom:26px;
   }
   .hero h1 em{font-style:italic;color:var(--gold)}
   .hero p.lead{
-    max-width:560px;margin:0 auto 40px;color:var(--muted);
+    max-width:480px;margin:0 0 40px;color:var(--muted);
     font-size:1.08rem;font-weight:300;
   }
-  .cta-row{display:flex;gap:16px;justify-content:center;flex-wrap:wrap}
+  .cta-row{display:flex;gap:16px;justify-content:flex-start;flex-wrap:wrap}
   .btn{
     display:inline-flex;align-items:center;gap:10px;cursor:pointer;
     font-family:var(--body);font-size:.86rem;letter-spacing:.08em;text-transform:uppercase;
@@ -124,15 +130,7 @@
   .btn-primary:hover{background:#f4d6a4;transform:translateY(-2px)}
   .btn-ghost{border-color:var(--line-strong);color:var(--text)}
   .btn-ghost:hover{border-color:var(--gold);color:var(--gold)}
-  .scroll-hint{margin-top:64px;font-size:.72rem;letter-spacing:.3em;text-transform:uppercase;color:var(--muted-2)}
-
-  /* ---------- Brand art ---------- */
-  .brand-art{padding:0 0 96px;text-align:center}
-  .brand-art img{
-    max-width:440px;width:100%;margin:0 auto;display:block;
-    border-radius:20px;border:1px solid var(--line-strong);
-    box-shadow:0 24px 70px rgba(0,0,0,.55), 0 0 60px rgba(233,196,137,0.08);
-  }
+  .scroll-hint{margin-top:64px;text-align:center;font-size:.72rem;letter-spacing:.3em;text-transform:uppercase;color:var(--muted-2)}
 
   /* ---------- Ethos ---------- */
   .ethos{padding:96px 0;border-top:1px solid var(--line)}
@@ -267,7 +265,11 @@
   /* ---------- Responsive ---------- */
   @media(max-width:960px){
     .grid,.steps{grid-template-columns:repeat(2,1fr)}
-    .ethos .inner,.join .inner{grid-template-columns:1fr;gap:36px}
+    .ethos .inner,.join .inner,.hero-inner{grid-template-columns:1fr;gap:36px}
+    .hero{text-align:center}
+    .hero-copy{text-align:center}
+    .hero p.lead{margin-left:auto;margin-right:auto}
+    .cta-row{justify-content:center}
     .socials{justify-content:flex-start}
   }
   @media(max-width:640px){
@@ -321,21 +323,21 @@
   <section class="hero">
     <div class="hero-aura" aria-hidden="true"></div>
     <div class="wrap">
-      <span class="eyebrow">Authentic designer fragrance · by the millilitre</span>
-      <h1>Find your <em>aura</em>.</h1>
-      <p class="lead">Designer scents shouldn't be a $150 gamble. We hand-decant the real thing into 5ml samples — so you can live with a fragrance before you commit to the full bottle.</p>
-      <div class="cta-row">
-        <a href="#shop" class="btn btn-primary">Browse the collection</a>
-        <a href="#how" class="btn btn-ghost">How it works</a>
+      <div class="hero-inner">
+        <div class="hero-art">
+          <img src="Logo.jpg" alt="Cologne Aura — Authentic Designer Fragrance, by the Millilitre" loading="lazy">
+        </div>
+        <div class="hero-copy">
+          <span class="eyebrow">Authentic designer fragrance · by the millilitre</span>
+          <h1>Find your <em>aura</em>.</h1>
+          <p class="lead">Designer scents shouldn't be a $150 gamble. We hand-decant the real thing into 5ml samples — so you can live with a fragrance before you commit to the full bottle.</p>
+          <div class="cta-row">
+            <a href="#shop" class="btn btn-primary">Browse the collection</a>
+            <a href="#how" class="btn btn-ghost">How it works</a>
+          </div>
+        </div>
       </div>
       <div class="scroll-hint">Scroll to explore</div>
-    </div>
-  </section>
-
-  <!-- BRAND ART -->
-  <section class="brand-art">
-    <div class="wrap">
-      <img src="Logo.jpg" alt="Cologne Aura — Authentic Designer Fragrance, by the Millilitre" loading="lazy">
     </div>
   </section>
 
