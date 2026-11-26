@@ -117,9 +117,9 @@
       background:var(--ink-2);border-bottom:1px solid var(--line);
       max-height:0;overflow:hidden;transition:max-height .35s ease;
     }
-    .nav-links.open{max-height:320px}
+    .nav-links.open{max-height:440px}
     .nav-links a{padding:16px 28px;width:100%;border-top:1px solid var(--line)}
-    .nav-links .cart{margin:16px 28px;justify-content:center}
+    .nav-links .cart{margin:16px 28px;justify-content:center;width:auto;align-self:stretch}
     .menu-btn{display:block}
     .bag-item{flex-direction:column;align-items:flex-start}
     .bag-item .right{width:100%;justify-content:space-between}
@@ -268,13 +268,19 @@
       btn.textContent = 'Redirecting…';
 
       const currentCart = getCart();
-      fetch(WORKER_URL, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ items: currentCart.map(i => ({ name: i.name, qty: i.qty })) })
-      }).then(res => res.json().then(data => ({ ok: res.ok, data })))
+      // Signed-in shoppers send their sign-in token so the order can be saved to their account.
+      sb.auth.getSession()
+        .then(({ data: { session } }) => session ? session.access_token : null)
+        .catch(() => null)
+        .then(accessToken => fetch(WORKER_URL, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ items: currentCart.map(i => ({ name: i.name, qty: i.qty })), accessToken })
+        }))
+        .then(res => res.json().then(data => ({ ok: res.ok, data })))
         .then(({ ok, data }) => {
           if (ok && data.url) {
+            localStorage.setItem('caServerSaves', data.savesOrder ? '1' : '0');
             window.location.href = data.url;
           } else {
             btn.disabled = false;
@@ -302,7 +308,10 @@
       </div>`;
     window.history.replaceState({}, '', 'checkout.html');
 
-    if (orderedCart.length) {
+    // Save from the browser only if the Worker isn't saving this order itself.
+    const serverSaves = localStorage.getItem('caServerSaves') === '1';
+    localStorage.removeItem('caServerSaves');
+    if (orderedCart.length && !serverSaves) {
       sb.auth.getSession().then(({ data: { session } }) => {
         if (session) {
           sb.from('orders').insert({

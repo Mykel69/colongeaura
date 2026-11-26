@@ -62,6 +62,13 @@
 
   /* Filters */
   .shop{padding:20px 0 96px}
+  .tools{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-bottom:22px}
+  .tools input,.tools select{font-family:var(--body);font-weight:300;font-size:1rem;color:var(--text);background:var(--surface);border:1px solid var(--line-strong);border-radius:100px;padding:12px 20px;transition:border-color .24s}
+  .tools input{flex:1;max-width:420px;min-width:220px}
+  .tools input::placeholder{color:var(--muted-2)}
+  .tools input:focus,.tools select:focus{border-color:var(--gold)}
+  .tools select{cursor:pointer}
+  .tools select option{background:var(--surface);color:var(--text)}
   .filters{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-bottom:52px}
   .chip{cursor:pointer;font-family:var(--body);font-size:.8rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);background:transparent;border:1px solid var(--line);border-radius:100px;padding:9px 20px;transition:.24s}
   .chip:hover{border-color:var(--line-strong);color:var(--text)}
@@ -125,9 +132,9 @@
   @media(max-width:960px){.grid{grid-template-columns:repeat(2,1fr)}.foot-in{flex-direction:column;align-items:flex-start}}
   @media(max-width:640px){
     .nav-links{position:absolute;top:76px;left:0;right:0;flex-direction:column;gap:0;background:var(--ink-2);border-bottom:1px solid var(--line);max-height:0;overflow:hidden;transition:max-height .35s ease}
-    .nav-links.open{max-height:360px}
+    .nav-links.open{max-height:440px}
     .nav-links a{padding:16px 28px;width:100%;border-top:1px solid var(--line)}
-    .nav-links .cart{margin:16px 28px;justify-content:center}
+    .nav-links .cart{margin:16px 28px;justify-content:center;width:auto;align-self:stretch}
     .menu-btn{display:block}
     .grid{grid-template-columns:1fr}
   }
@@ -171,6 +178,15 @@
 
   <section class="shop">
     <div class="wrap">
+      <div class="tools">
+        <input type="search" id="search" placeholder="Search by name, brand or scent" aria-label="Search fragrances" autocomplete="off">
+        <select id="sort" aria-label="Sort fragrances">
+          <option value="featured">Sort: Featured</option>
+          <option value="price-asc">Price: low to high</option>
+          <option value="price-desc">Price: high to low</option>
+          <option value="name">Name: A to Z</option>
+        </select>
+      </div>
       <div class="filters" id="filters" role="group" aria-label="Filter by scent family">
         <button class="chip active" data-cat="all">All</button>
         <button class="chip" data-cat="fresh">Fresh</button>
@@ -278,6 +294,10 @@
     toastTimer = setTimeout(() => toast.classList.remove('show'), 2200);
   }
 
+  // Lower-case and strip accents, so "prives" finds "Privés"
+  const plain = s => s.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+  const entries = [];
+
   CATALOG.forEach(f => {
     const card = document.createElement('article');
     card.className = 'card';
@@ -321,31 +341,50 @@
     });
 
     grid.appendChild(card);
+    entries.push({ f, card, text: plain(`${f.name} ${f.house} ${f.fam} ${f.cat}`) });
   });
 
-  /* ---- Filters ---- */
+  /* ---- Filters, search and sort ---- */
   const chips = document.querySelectorAll('.chip');
-  const cards = () => document.querySelectorAll('.card');
+  const search = document.getElementById('search');
+  const sort = document.getElementById('sort');
+  const sorters = {
+    'featured':   () => 0,
+    'price-asc':  (a, b) => a.f.price - b.f.price,
+    'price-desc': (a, b) => b.f.price - a.f.price,
+    'name':       (a, b) => a.f.name.localeCompare(b.f.name)
+  };
+
+  function applyView(){
+    const cat = document.querySelector('.chip.active').dataset.cat;
+    const words = plain(search.value).split(/\s+/).filter(Boolean);
+    let shown = 0;
+    [...entries].sort(sorters[sort.value]).forEach(({ f, card, text }) => {
+      const match = (cat === 'all' || f.cat === cat) && words.every(w => text.includes(w));
+      card.style.display = match ? '' : 'none';
+      if (match) shown++;
+      grid.appendChild(card);
+    });
+    const existing = document.querySelector('.empty');
+    if (existing) existing.remove();
+    if (shown === 0) {
+      const e = document.createElement('div');
+      e.className = 'empty';
+      e.textContent = words.length ? 'No fragrances match your search.' : 'Nothing in this family yet — check back soon.';
+      grid.appendChild(e);
+    }
+  }
+
   chips.forEach(chip => {
     chip.addEventListener('click', () => {
       chips.forEach(c => c.classList.remove('active'));
       chip.classList.add('active');
-      const cat = chip.dataset.cat;
-      let shown = 0;
-      cards().forEach(card => {
-        const match = cat === 'all' || card.dataset.cat === cat;
-        card.style.display = match ? '' : 'none';
-        if (match) shown++;
-      });
-      const existing = document.querySelector('.empty');
-      if (existing) existing.remove();
-      if (shown === 0) {
-        const e = document.createElement('div');
-        e.className = 'empty'; e.textContent = 'Nothing in this family yet — check back soon.';
-        grid.appendChild(e);
-      }
+      applyView();
     });
   });
+  search.addEventListener('input', applyView);
+  sort.addEventListener('change', applyView);
+  applyView(); // browsers may restore the search box or sort choice on "Back"
 
   /* ---- Mobile menu ---- */
   const menuBtn = document.getElementById('menuBtn');

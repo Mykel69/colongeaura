@@ -71,7 +71,7 @@
   .auth-form{display:flex;flex-direction:column;gap:14px}
   .auth-form input{
     background:var(--ink-2);border:1px solid var(--line);color:var(--text);
-    font-family:var(--body);font-size:.92rem;padding:15px 18px;border-radius:16px;outline:none;transition:border-color .25s;
+    font-family:var(--body);font-size:1rem;padding:15px 18px;border-radius:16px;outline:none;transition:border-color .25s;
   }
   .auth-form input:focus{border-color:var(--gold)}
   .auth-form input::placeholder{color:var(--muted-2)}
@@ -113,9 +113,10 @@
       background:var(--ink-2);border-bottom:1px solid var(--line);
       max-height:0;overflow:hidden;transition:max-height .35s ease;
     }
-    .nav-links.open{max-height:360px}
+    .nav-links.open{max-height:440px}
     .nav-links a{padding:16px 28px;width:100%;border-top:1px solid var(--line)}
-    .nav-links .cart{margin:16px 28px;justify-content:center}
+    .nav-links .cart{margin:16px 28px;justify-content:center;width:auto;align-self:stretch}
+    .auth-card .tab{font-size:.74rem;letter-spacing:.04em}
     .menu-btn{display:block}
   }
   @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important}}
