@@ -306,14 +306,20 @@
             list.innerHTML = `<p class="empty-orders">No orders yet. Once you check out, they'll show up here.</p>`;
             return;
           }
-          list.innerHTML = orders.map(o => `
+          list.innerHTML = orders.map(o => {
+            // The total is what was paid, so anything beyond the fragrances is shipping.
+            const subtotal = o.items.reduce((sum, i) => sum + i.price * i.qty, 0);
+            const shipping = Math.round((o.total - subtotal) * 100) / 100;
+            return `
             <div class="order-card">
               <div class="meta">
                 <span class="date">${new Date(o.created_at).toLocaleDateString(undefined, { year: 'numeric', month: 'long', day: 'numeric' })}</span>
                 <span class="total">$${o.total}</span>
               </div>
               ${o.items.map(i => `<div class="line"><span>${i.qty}× ${i.name}</span><span>$${i.price * i.qty}</span></div>`).join('')}
-            </div>`).join('');
+              <div class="line"><span>Shipping</span><span>${shipping > 0 ? '$' + shipping : 'Free'}</span></div>
+            </div>`;
+          }).join('');
         });
     });
   }
