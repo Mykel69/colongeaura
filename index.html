@@ -415,6 +415,7 @@
         <form class="field" id="joinForm" action="https://formspree.io/f/xanjzyvp" method="POST">
           <input type="email" name="email" id="email" placeholder="you@email.com" aria-label="Email address" required>
           <input type="hidden" name="_subject" value="New newsletter signup — Cologne Aura">
+          <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" aria-hidden="true" style="display:none">
           <button class="btn btn-primary" type="submit">Notify me</button>
         </form>
       </div>
@@ -440,6 +441,7 @@
         <input type="email" name="email" placeholder="you@email.com" aria-label="Email address" required>
         <textarea name="message" placeholder="Your message" aria-label="Message" required></textarea>
         <input type="hidden" name="_subject" value="New contact form message — Cologne Aura">
+        <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" aria-hidden="true" style="display:none">
         <button class="btn btn-primary" type="submit">Send message</button>
       </form>
     </div>
@@ -460,7 +462,7 @@
 
 <div class="toast" id="toast">Added to bag — <b>keep exploring</b></div>
 
-<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4.4.1/dist/email.min.js" integrity="sha384-SALc35EccAf6RzGw4iNsyj7kTPr33K7RoGzYu+7heZhT8s0GZouafRiCg1qy44AS" crossorigin="anonymous"></script>
 <script>
   emailjs.init({ publicKey: "oA7pTzEGhkbZ99wPY" });
 </script>
@@ -562,6 +564,8 @@
 
   /* ---- Formspree submissions ---- */
   function submitToFormspree(form, onSuccess){
+    // Only bots fill in the hidden field: send nothing, including the welcome email.
+    if (form.elements._gotcha.value) return;
     const btn = form.querySelector('button[type="submit"]');
     const label = btn.textContent;
     btn.disabled = true;
