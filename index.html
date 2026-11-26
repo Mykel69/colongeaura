@@ -163,8 +163,9 @@
     filter:blur(34px);opacity:.55;transition:opacity .3s;pointer-events:none;
   }
   .card:hover .glow{opacity:.85}
-  .card .bottle{position:relative;z-index:1;height:130px;display:flex;align-items:center;justify-content:center;margin-bottom:16px}
+  .card .bottle{position:relative;z-index:1;height:240px;display:flex;align-items:center;justify-content:center;margin-bottom:16px}
   .card .bottle svg{height:120px;color:var(--aura)}
+  .card .bottle img{max-height:240px;width:auto;border-radius:10px;filter:drop-shadow(0 12px 24px rgba(0,0,0,.45))}
   .card .house{position:relative;z-index:1;font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);margin-bottom:6px}
   .card .name{position:relative;z-index:1;font-family:var(--display);font-size:1.5rem;font-weight:500;line-height:1.05;margin-bottom:8px}
   .card .fam{position:relative;z-index:1;display:inline-block;font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;color:var(--aura);border:1px solid var(--line-strong);border-radius:100px;padding:4px 11px;margin-bottom:20px}
@@ -459,12 +460,12 @@
   /* ---- Catalog data ---- */
   const CATALOG = [
     { name:"Sauvage",              house:"Dior",             fam:"Aromatic Fougère",  aura:"#5AA9F0", price:12 },
-    { name:"Y Eau de Parfum",      house:"Yves Saint Laurent", fam:"Aromatic Fresh",  aura:"#8AA0F0", price:12 },
+    { name:"Y Eau de Parfum",      house:"Yves Saint Laurent", fam:"Aromatic Fresh",  aura:"#8AA0F0", price:12, img:"y-eau-de-parfum.jpg" },
     { name:"Eros",                 house:"Versace",          fam:"Aromatic Fresh",    aura:"#4FC98A", price:11 },
     { name:"Le Beau",              house:"Jean Paul Gaultier", fam:"Aromatic Woody",  aura:"#A98CE0", price:11 },
-    { name:"1 Million Elixir",     house:"Paco Rabanne",     fam:"Amber Spicy",       aura:"#E0B84E", price:12 },
+    { name:"1 Million Elixir",     house:"Paco Rabanne",     fam:"Amber Spicy",       aura:"#E0B84E", price:12, img:"1-million-elixir.jpg" },
     { name:"Luna Rossa Ocean",     house:"Prada",            fam:"Aquatic",           aura:"#4FB6D0", price:15 },
-    { name:"Side Effect",          house:"Initio Parfums Privés", fam:"Gourmand Tobacco", aura:"#E08A3C", price:18 },
+    { name:"Side Effect",          house:"Initio Parfums Privés", fam:"Gourmand Tobacco", aura:"#E08A3C", price:18, img:"side-effect.jpg" },
     { name:"Charm Unfolds",        house:"YCZ",              fam:"Marine Woody",      aura:"#6FB8D6", price:6 },
     { name:"Tobacco & Timber",     house:"Tru Fragrance",    fam:"Tobacco Woody",     aura:"#B08968", price:7 },
     { name:"Uomo",                 house:"Valentino",        fam:"Leather Woody",     aura:"#8B5E3C", price:12 },
@@ -473,7 +474,9 @@
     { name:"Bad Boy Cobalt",       house:"Carolina Herrera", fam:"Fresh Spicy",       aura:"#2F5BD9", price:17 },
     { name:"Cloudar",              house:"Better World Fragrance House", fam:"Fresh Woody", aura:"#B8C4D6", price:16 },
     { name:"F by Ferragamo",       house:"Salvatore Ferragamo", fam:"Aromatic Woody", aura:"#6B8F7A", price:10 },
-    { name:"Spicebomb Extreme",    house:"Viktor & Rolf",    fam:"Amber Spicy",       aura:"#C0482F", price:15 },
+    { name:"Spicebomb Extreme",    house:"Viktor & Rolf",    fam:"Amber Spicy",       aura:"#C0482F", price:15, img:"spicebomb-extreme.jpg" },
+    { name:"Le Male Le Parfum",    house:"Jean Paul Gaultier", fam:"Vanilla Oriental", aura:"#7B6FA8", price:14, img:"le-male-le-parfum.jpg" },
+    { name:"Le Male Elixir",       house:"Jean Paul Gaultier", fam:"Sweet Amber",     aura:"#D9A441", price:15, img:"le-male-elixir.jpg" },
   ];
 
   const bottleSVG = `<svg viewBox="0 0 60 120" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -511,7 +514,7 @@
     el.style.setProperty('--aura', f.aura);
     el.innerHTML = `
       <div class="glow" aria-hidden="true"></div>
-      <div class="bottle" aria-hidden="true">${bottleSVG}</div>
+      <div class="bottle">${f.img ? `<img src="${f.img}" alt="${f.house} ${f.name}" loading="lazy">` : bottleSVG}</div>
       <div class="house">${f.house}</div>
       <div class="name">${f.name}</div>
       <span class="fam">${f.fam}</span>

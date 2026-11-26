@@ -71,10 +71,10 @@
   .grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
   .card{position:relative;background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:22px 22px 22px;overflow:hidden;transition:border-color .3s,transform .3s}
   .card:hover{border-color:var(--line-strong);transform:translateY(-4px)}
-  .media{position:relative;height:172px;display:flex;align-items:center;justify-content:center;margin-bottom:18px}
+  .media{position:relative;height:244px;display:flex;align-items:center;justify-content:center;margin-bottom:18px}
   .media .glow{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:190px;height:190px;border-radius:50%;background:radial-gradient(circle,var(--aura),transparent 66%);filter:blur(34px);opacity:.5;transition:opacity .3s;pointer-events:none;z-index:0}
   .card:hover .media .glow{opacity:.82}
-  .media .photo{position:relative;z-index:1;max-height:168px;width:auto;object-fit:contain;filter:drop-shadow(0 12px 24px rgba(0,0,0,.45))}
+  .media .photo{position:relative;z-index:1;max-height:240px;width:auto;object-fit:contain;border-radius:10px;filter:drop-shadow(0 12px 24px rgba(0,0,0,.45))}
   .media .bottle{position:relative;z-index:1;color:var(--aura)}
   .media .bottle svg{height:130px}
   .placeholder-tag{position:absolute;top:6px;right:6px;z-index:2;font-size:.58rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted-2);border:1px solid var(--line);border-radius:100px;padding:3px 9px}
@@ -211,12 +211,12 @@
   */
   const CATALOG = [
     { name:"Sauvage",           house:"Dior",                   fam:"Aromatic Fougère",  cat:"fresh", aura:"#5AA9F0", price:12 },
-    { name:"Y Eau de Parfum",   house:"Yves Saint Laurent",     fam:"Aromatic Fresh",    cat:"fresh", aura:"#8AA0F0", price:12 },
+    { name:"Y Eau de Parfum",   house:"Yves Saint Laurent",     fam:"Aromatic Fresh",    cat:"fresh", aura:"#8AA0F0", price:12, img:"y-eau-de-parfum.jpg" },
     { name:"Eros",              house:"Versace",                fam:"Aromatic Fresh",    cat:"sweet", aura:"#4FC98A", price:11 },
     { name:"Le Beau",           house:"Jean Paul Gaultier",     fam:"Aromatic Woody",    cat:"woody", aura:"#A98CE0", price:11 },
-    { name:"1 Million Elixir",  house:"Paco Rabanne",           fam:"Amber Spicy",       cat:"amber", aura:"#E0B84E", price:12 },
+    { name:"1 Million Elixir",  house:"Paco Rabanne",           fam:"Amber Spicy",       cat:"amber", aura:"#E0B84E", price:12, img:"1-million-elixir.jpg" },
     { name:"Luna Rossa Ocean",  house:"Prada",                  fam:"Aquatic",           cat:"fresh", aura:"#4FB6D0", price:15 },
-    { name:"Side Effect",       house:"Initio Parfums Privés",  fam:"Gourmand Tobacco",  cat:"amber", aura:"#E08A3C", price:18 },
+    { name:"Side Effect",       house:"Initio Parfums Privés",  fam:"Gourmand Tobacco",  cat:"amber", aura:"#E08A3C", price:18, img:"side-effect.jpg" },
     { name:"Charm Unfolds",     house:"YCZ",                    fam:"Marine Woody",      cat:"fresh", aura:"#6FB8D6", price:6 },
     { name:"Tobacco & Timber",  house:"Tru Fragrance",          fam:"Tobacco Woody",     cat:"woody", aura:"#B08968", price:7 },
     { name:"Uomo",              house:"Valentino",              fam:"Leather Woody",     cat:"woody", aura:"#8B5E3C", price:12 },
@@ -225,7 +225,9 @@
     { name:"Bad Boy Cobalt",    house:"Carolina Herrera",       fam:"Fresh Spicy",       cat:"fresh", aura:"#2F5BD9", price:17 },
     { name:"Cloudar",           house:"Better World Fragrance House", fam:"Fresh Woody", cat:"fresh", aura:"#B8C4D6", price:16 },
     { name:"F by Ferragamo",    house:"Salvatore Ferragamo",    fam:"Aromatic Woody",    cat:"woody", aura:"#6B8F7A", price:10 },
-    { name:"Spicebomb Extreme", house:"Viktor & Rolf",          fam:"Amber Spicy",       cat:"amber", aura:"#C0482F", price:15 },
+    { name:"Spicebomb Extreme", house:"Viktor & Rolf",          fam:"Amber Spicy",       cat:"amber", aura:"#C0482F", price:15, img:"spicebomb-extreme.jpg" },
+    { name:"Le Male Le Parfum", house:"Jean Paul Gaultier",     fam:"Vanilla Oriental",  cat:"amber", aura:"#7B6FA8", price:14, img:"le-male-le-parfum.jpg" },
+    { name:"Le Male Elixir",    house:"Jean Paul Gaultier",     fam:"Sweet Amber",       cat:"sweet", aura:"#D9A441", price:15, img:"le-male-elixir.jpg" },
   ];
 
   const bottleSVG = `<svg viewBox="0 0 60 120" fill="none" xmlns="http://www.w3.org/2000/svg">
