@@ -120,6 +120,9 @@
   }
   @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important}}
   :focus-visible{outline:2px solid var(--gold);outline-offset:3px;border-radius:4px}
+  .foot-links{display:flex;gap:22px;flex-wrap:wrap;width:100%;border-top:1px solid var(--line);padding-top:18px}
+  .foot-links a{color:var(--muted);font-size:.8rem;letter-spacing:.04em;transition:color .25s}
+  .foot-links a:hover{color:var(--gold)}
 </style>
 </head>
 <body>
@@ -160,6 +163,11 @@
   <div class="wrap foot-in">
     <small>© 2026 Cologne Aura. Crafted with obsession.</small>
     <p class="disc">Cologne Aura is a completely independent reseller of authentic fragrances. We are not affiliated with, endorsed by, or associated with any of the luxury design houses or fragrance manufacturers whose products we decant. All product names, logos, and brands are the property of their respective owners. Our decants contain genuine fragrance rebottled independently by us without the authorization or supervision of the original manufacturer.</p>
+    <nav class="foot-links" aria-label="Policies">
+      <a href="policies.html#shipping">Shipping</a>
+      <a href="policies.html#returns">Returns</a>
+      <a href="policies.html#privacy">Privacy</a>
+    </nav>
   </div>
 </footer>
 
